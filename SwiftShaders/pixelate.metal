@@ -1,11 +1,3 @@
-//
-//  pixelate.metal
-//  SwiftShaders
-//
-//  Created by Malik, Alayli on 2019/10/10.
-//  Copyright © 2019 MalikAlayli. All rights reserved.
-//
-
 #include <metal_stdlib>
 using namespace metal;
 #include <SceneKit/scn_metal>

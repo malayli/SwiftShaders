@@ -1,11 +1,3 @@
-//
-//  Shaders.swift
-//  StellarSystem
-//
-//  Created by Malik, Alayli on 2019/10/02.
-//  Copyright © 2019 Malik Alayli. All rights reserved.
-//
-
 import Foundation
 
 //

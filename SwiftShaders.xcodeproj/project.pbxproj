@@ -20,6 +20,7 @@
 		3A766275234ECFCC009649F8 /* pixelate.metal in Sources */ = {isa = PBXBuildFile; fileRef = 3A766274234ECFCC009649F8 /* pixelate.metal */; };
 		3A766279234ED23F009649F8 /* cloud.metal in Sources */ = {isa = PBXBuildFile; fileRef = 3A766278234ED23F009649F8 /* cloud.metal */; };
 		3A76627B234F14D0009649F8 /* SwiftShadersScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A76627A234F14D0009649F8 /* SwiftShadersScene.swift */; };
+		3A76627D234F2B3B009649F8 /* ThickRedLine.metal in Sources */ = {isa = PBXBuildFile; fileRef = 3A76627C234F2B3B009649F8 /* ThickRedLine.metal */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -59,6 +60,7 @@
 		3A766274234ECFCC009649F8 /* pixelate.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = pixelate.metal; sourceTree = "<group>"; };
 		3A766278234ED23F009649F8 /* cloud.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = cloud.metal; sourceTree = "<group>"; };
 		3A76627A234F14D0009649F8 /* SwiftShadersScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftShadersScene.swift; sourceTree = "<group>"; };
+		3A76627C234F2B3B009649F8 /* ThickRedLine.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = ThickRedLine.metal; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -121,6 +123,7 @@
 				3A766272234ECF0A009649F8 /* pixelate.plist */,
 				1FE5FD99234998FB009DF72F /* Shaders.swift */,
 				3A76627A234F14D0009649F8 /* SwiftShadersScene.swift */,
+				3A76627C234F2B3B009649F8 /* ThickRedLine.metal */,
 			);
 			path = SwiftShaders;
 			sourceTree = "<group>";
@@ -280,6 +283,7 @@
 				1FE5FD6D234997D1009DF72F /* GameViewController.swift in Sources */,
 				1FE5FD9B234998FB009DF72F /* Shaders.swift in Sources */,
 				1FE5FD69234997D1009DF72F /* AppDelegate.swift in Sources */,
+				3A76627D234F2B3B009649F8 /* ThickRedLine.metal in Sources */,
 				3A766279234ED23F009649F8 /* cloud.metal in Sources */,
 				3A766275234ECFCC009649F8 /* pixelate.metal in Sources */,
 			);

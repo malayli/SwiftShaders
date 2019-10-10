@@ -16,6 +16,8 @@ final class SwiftShadersScene: SCNScene {
         contentNode.castsShadow = false
         rootNode.addChildNode(contentNode)
         
+        // First Line: SceneKit Shaders
+        
         contentNode.addChildNode(cubeNode(position: SCNVector3(-6, 3, 0), shaders: [.surface: simpleHalfColoringFromScreenSizeSurfaceShader]))
         
         contentNode.addChildNode(cubeNode(position: SCNVector3(-3, 3, 0), shaders: [.surface: simpleHalfColoringSurfaceShader]))
@@ -28,42 +30,44 @@ final class SwiftShadersScene: SCNScene {
         
         contentNode.addChildNode(cubeNode(position: SCNVector3(6, 3, 0), shaders: [.geometry: twistingGeometryShader]))
         
-        let texturedCubeNode = cubeNode(position: SCNVector3(-3, 0, 0), shaders: [:])
+        // Second Line: Filters
+        
+        let texturedCubeNode = cubeNode(position: SCNVector3(-6, 0, 0), shaders: [:])
         texturedCubeNode.addTexture()
         contentNode.addChildNode(texturedCubeNode)
         
-        let blurredCubeNode = cubeNode(position: SCNVector3(0, 0, 0), shaders: [:])
+        let blurredCubeNode = cubeNode(position: SCNVector3(-3, 0, 0), shaders: [:])
         blurredCubeNode.addTexture()
-        let gaussianBlurFilter = CIFilter(name: "CIGaussianBlur")
-        gaussianBlurFilter?.name = "blur"
-        blurredCubeNode.filters = [ gaussianBlurFilter! ]
+        blurredCubeNode.addFilters(["CIGaussianBlur"])
         contentNode.addChildNode(blurredCubeNode)
         
-        let cloudNode = cubeNode(position: SCNVector3(3, 0, 0), shaders: [:])
-        let program = SCNProgram()
-        program.vertexFunctionName = "cloudVertex"
-        program.fragmentFunctionName = "cloudFragment"
-        cloudNode.geometry?.firstMaterial?.program = program
-        let noiseImage  = UIImage(named: "art.scnassets/softNoise.png")!
-        let noiseImageProperty = SCNMaterialProperty(contents: noiseImage)
-        cloudNode.geometry?.firstMaterial?.setValue(noiseImageProperty, forKey: "noiseTexture")
-        let intImage  = UIImage(named: "art.scnassets/sharpNoise.png")!
-        let intImageProperty = SCNMaterialProperty(contents: intImage)
-        cloudNode.geometry?.firstMaterial?.setValue(intImageProperty, forKey: "interferenceTexture")
-        contentNode.addChildNode(cloudNode)
+        let pixellatedCubeNode = cubeNode(position: SCNVector3(0, 0, 0), shaders: [:])
+        pixellatedCubeNode.addTexture()
+        pixellatedCubeNode.addFilters(["CIPixellate"])
+        contentNode.addChildNode(pixellatedCubeNode)
         
-        //        // Allocate enough memory to store three floats per vertex, ensuring we free it later
-        //        let terrainBuffer = UnsafeMutableBufferPointer<Float>.allocate(capacity: 2)
-        //        defer {
-        //            terrainBuffer.deallocate()
-        //        }
-        //
-        //        // Copy each element of each vector into the buffer
-        //        terrainBuffer[0] = Float(0)
-        //
-        //        // Copy the buffer data into a Data object, as expected by SceneKit
-        //        let terrainData = Data(buffer: terrainBuffer)
-        //blurredCubeNode2.geometry?.firstMaterial?.setValue(terrainData, forKey: "attribute")
+        let bloomCubeNode = cubeNode(position: SCNVector3(3, 0, 0), shaders: [:])
+        bloomCubeNode.addTexture()
+        bloomCubeNode.addFilters(["CIBloom"])
+        contentNode.addChildNode(bloomCubeNode)
+        
+        let kaleidoscopeCubeNode = cubeNode(position: SCNVector3(6, 0, 0), shaders: [:])
+        kaleidoscopeCubeNode.addTexture()
+        kaleidoscopeCubeNode.addFilters(["CIThermal"])
+        contentNode.addChildNode(kaleidoscopeCubeNode)
+        
+        // Third Line: Metal Shaders
+        
+        let geometry = SCNGeometry.lineThrough(points: [SCNVector3(-10, 0,0), SCNVector3(-10, 10, 0), SCNVector3(10, 10, 0), SCNVector3(10, 0, 0)],
+                                               width: 20,
+                                               closed: false,
+                                               color: UIColor.red.cgColor)
+        let node = SCNNode(geometry: geometry)
+        contentNode.addChildNode(node)
+        
+        let cloudNode = cubeNode(position: SCNVector3(0, -3, 0), shaders: [:])
+        cloudNode.addCloudEffect()
+        contentNode.addChildNode(cloudNode)
     }
 }
 
@@ -114,5 +118,69 @@ private extension SCNNode {
     
     func addTexture() {
         geometry?.firstMaterial?.diffuse.contents = UIImage(named: "texture")
+    }
+    
+    func addFilters(_ names: [String]) {
+        names.forEach {
+        if let filter = CIFilter(name: $0) {
+            filter.name = $0
+            filters = [filter]
+        }
+        }
+    }
+    
+    func addCloudEffect() {
+        let program = SCNProgram()
+        program.vertexFunctionName = "cloudVertex"
+        program.fragmentFunctionName = "cloudFragment"
+        program.isOpaque = false
+        geometry?.firstMaterial?.program = program
+        let noiseImage  = UIImage(named: "art.scnassets/softNoise.png")!
+        let noiseImageProperty = SCNMaterialProperty(contents: noiseImage)
+        geometry?.firstMaterial?.setValue(noiseImageProperty, forKey: "noiseTexture")
+        let intImage  = UIImage(named: "art.scnassets/sharpNoise.png")!
+        let intImageProperty = SCNMaterialProperty(contents: intImage)
+        geometry?.firstMaterial?.setValue(intImageProperty, forKey: "interferenceTexture")
+    }
+}
+
+extension SCNGeometry {
+    class func lineThrough(points: [SCNVector3], width:Int = 20, closed: Bool = false,  color: CGColor = UIColor.black.cgColor, mitter: Bool = false) -> SCNGeometry {
+        
+        // Becouse we cannot use geometry shaders in metal, every point on the line has to be changed into 4 verticles
+        let vertices: [SCNVector3] = points.flatMap { p in [p, p, p, p] }
+        
+        // Create Geometry Source object
+        let source = SCNGeometrySource(vertices: vertices)
+        
+        // Create Geometry Element object
+        var indices = Array((0..<Int32(vertices.count)))
+        if (closed) {
+            indices += [0, 1]
+        }
+        let element = SCNGeometryElement(indices: indices, primitiveType: .triangleStrip)
+        
+        // Prepare data for vertex shader
+        // Format is line width, number of points, should mitter be included, should line create closed loop
+        let lineData: [Int32] = [Int32(width), Int32(points.count), Int32(mitter ? 1 : 0), Int32(closed ? 1 : 0)]
+        
+        let geometry = SCNGeometry(sources: [source], elements: [element])
+        geometry.setValue(Data(bytes: lineData, count: MemoryLayout<Int32>.size*lineData.count), forKeyPath: "lineData")
+        
+        // map verticles into float3
+        let floatPoints = vertices.map { SIMD3<Float>($0) }
+        geometry.setValue(NSData(bytes: floatPoints, length: MemoryLayout<SIMD3<Float>>.size * floatPoints.count), forKeyPath: "vertices")
+        
+        // map color into float
+        let colorFloat = color.components!.map { Float($0) }
+        geometry.setValue(NSData(bytes: colorFloat, length: MemoryLayout<simd_float1>.size * color.numberOfComponents), forKey: "color")
+        
+        // Set the shader program
+        let program = SCNProgram()
+        program.fragmentFunctionName = "thickLinesFragment"
+        program.vertexFunctionName = "thickLinesVertex"
+        geometry.program = program
+        
+        return geometry
     }
 }
