@@ -15,9 +15,11 @@
 		1FE5FD75234997D2009DF72F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1FE5FD73234997D2009DF72F /* LaunchScreen.storyboard */; };
 		1FE5FD80234997D2009DF72F /* SwiftShadersTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE5FD7F234997D2009DF72F /* SwiftShadersTests.swift */; };
 		1FE5FD8B234997D2009DF72F /* SwiftShadersUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE5FD8A234997D2009DF72F /* SwiftShadersUITests.swift */; };
-		1FE5FD9A234998FB009DF72F /* StellarSystemScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE5FD98234998FA009DF72F /* StellarSystemScene.swift */; };
 		1FE5FD9B234998FB009DF72F /* Shaders.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE5FD99234998FB009DF72F /* Shaders.swift */; };
-		1FE5FD9D234999CA009DF72F /* ShipGameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE5FD9C234999CA009DF72F /* ShipGameViewController.swift */; };
+		3A766273234ECF0A009649F8 /* pixelate.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3A766272234ECF0A009649F8 /* pixelate.plist */; };
+		3A766275234ECFCC009649F8 /* pixelate.metal in Sources */ = {isa = PBXBuildFile; fileRef = 3A766274234ECFCC009649F8 /* pixelate.metal */; };
+		3A766279234ED23F009649F8 /* cloud.metal in Sources */ = {isa = PBXBuildFile; fileRef = 3A766278234ED23F009649F8 /* cloud.metal */; };
+		3A76627B234F14D0009649F8 /* SwiftShadersScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A76627A234F14D0009649F8 /* SwiftShadersScene.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -52,9 +54,11 @@
 		1FE5FD86234997D2009DF72F /* SwiftShadersUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SwiftShadersUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1FE5FD8A234997D2009DF72F /* SwiftShadersUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftShadersUITests.swift; sourceTree = "<group>"; };
 		1FE5FD8C234997D2009DF72F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		1FE5FD98234998FA009DF72F /* StellarSystemScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StellarSystemScene.swift; sourceTree = "<group>"; };
 		1FE5FD99234998FB009DF72F /* Shaders.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Shaders.swift; sourceTree = "<group>"; };
-		1FE5FD9C234999CA009DF72F /* ShipGameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShipGameViewController.swift; sourceTree = "<group>"; };
+		3A766272234ECF0A009649F8 /* pixelate.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = pixelate.plist; sourceTree = "<group>"; };
+		3A766274234ECFCC009649F8 /* pixelate.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = pixelate.metal; sourceTree = "<group>"; };
+		3A766278234ED23F009649F8 /* cloud.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = cloud.metal; sourceTree = "<group>"; };
+		3A76627A234F14D0009649F8 /* SwiftShadersScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftShadersScene.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -108,13 +112,15 @@
 				1FE5FD68234997D1009DF72F /* AppDelegate.swift */,
 				1FE5FD6A234997D1009DF72F /* art.scnassets */,
 				1FE5FD71234997D2009DF72F /* Assets.xcassets */,
+				3A766278234ED23F009649F8 /* cloud.metal */,
 				1FE5FD6C234997D1009DF72F /* GameViewController.swift */,
 				1FE5FD76234997D2009DF72F /* Info.plist */,
 				1FE5FD73234997D2009DF72F /* LaunchScreen.storyboard */,
 				1FE5FD6E234997D1009DF72F /* Main.storyboard */,
+				3A766274234ECFCC009649F8 /* pixelate.metal */,
+				3A766272234ECF0A009649F8 /* pixelate.plist */,
 				1FE5FD99234998FB009DF72F /* Shaders.swift */,
-				1FE5FD9C234999CA009DF72F /* ShipGameViewController.swift */,
-				1FE5FD98234998FA009DF72F /* StellarSystemScene.swift */,
+				3A76627A234F14D0009649F8 /* SwiftShadersScene.swift */,
 			);
 			path = SwiftShaders;
 			sourceTree = "<group>";
@@ -244,6 +250,7 @@
 				1FE5FD6B234997D1009DF72F /* art.scnassets in Resources */,
 				1FE5FD75234997D2009DF72F /* LaunchScreen.storyboard in Resources */,
 				1FE5FD72234997D2009DF72F /* Assets.xcassets in Resources */,
+				3A766273234ECF0A009649F8 /* pixelate.plist in Resources */,
 				1FE5FD70234997D1009DF72F /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -269,11 +276,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1FE5FD9A234998FB009DF72F /* StellarSystemScene.swift in Sources */,
+				3A76627B234F14D0009649F8 /* SwiftShadersScene.swift in Sources */,
 				1FE5FD6D234997D1009DF72F /* GameViewController.swift in Sources */,
-				1FE5FD9D234999CA009DF72F /* ShipGameViewController.swift in Sources */,
 				1FE5FD9B234998FB009DF72F /* Shaders.swift in Sources */,
 				1FE5FD69234997D1009DF72F /* AppDelegate.swift in Sources */,
+				3A766279234ED23F009649F8 /* cloud.metal in Sources */,
+				3A766275234ECFCC009649F8 /* pixelate.metal in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

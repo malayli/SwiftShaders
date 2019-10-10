@@ -3,7 +3,13 @@ import SpriteKit
 import GameplayKit
 import SceneKit
 
+enum SceneState {
+    case standard, pixelized
+}
+
 final class GameViewController: UIViewController {
+    private var sceneState = SceneState.standard
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         addScene()
@@ -14,7 +20,7 @@ final class GameViewController: UIViewController {
             return
         }
         
-        scnView.scene = StellarSystemScene() as StellarSystemScene
+        scnView.scene = SwiftShadersScene() as SwiftShadersScene
 
         let camera = SCNCamera()
         camera.wantsHDR = true
@@ -33,15 +39,20 @@ final class GameViewController: UIViewController {
         scnView.allowsCameraControl = true // allows the user to manipulate the camera
         scnView.showsStatistics = true // show statistics such as fps and timing information
         scnView.backgroundColor = .clear
-        //scnView.scene?.background.contents = UIImage(named: "galaxy")
-        scnView.play(nil)
-    }
-    
-    @IBAction func pause(_ sender: Any?) {
-        guard let scnView = view as? SCNView, let scene = scnView.scene else {
-            return
+        
+        switch sceneState {
+        case .standard: ()
+            
+        case .pixelized:
+            if let path = Bundle.main.path(forResource: "pixelate", ofType: "plist"),
+                let plistDict = NSDictionary(contentsOfFile: path),
+                let plistStrDict = plistDict as? [String : AnyObject]  {
+                let pixelateTechnique = SCNTechnique(dictionary:plistStrDict)
+                scnView.technique = pixelateTechnique
+            }
         }
-        scene.isPaused = !scene.isPaused
+        
+        scnView.play(nil)
     }
     
     func shouldAutorotate() -> Bool {
