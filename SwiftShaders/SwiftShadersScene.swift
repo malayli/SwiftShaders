@@ -69,10 +69,11 @@ final class SwiftShadersScene: SCNScene {
 //        noNode.addTexture()
 //        noNode.addNoEffect()
 //        contentNode.addChildNode(noNode)
-        
-//        let simpleNode = cubeNode(position: SCNVector3(-3, -3, 0), shaders: [:])
-//        simpleNode.addSimpleEffect()
-//        contentNode.addChildNode(simpleNode)
+
+        let textureSamplerNode = cubeNode(position: SCNVector3(-3, -3, 0), shaders: [:])
+        textureSamplerNode.addTexture()
+        textureSamplerNode.addTextureSamplerEffect()
+        contentNode.addChildNode(textureSamplerNode)
         
         let cloudNode = cubeNode(position: SCNVector3(0, -3, 0), shaders: [:])
         cloudNode.addCloudEffect()
@@ -174,6 +175,13 @@ private extension SCNNode {
         geometry?.firstMaterial?.lightingModel = .constant
     }
     
+    func addTextureSamplerEffect() {
+        let program = SCNProgram()
+        program.vertexFunctionName = "vertex_main"
+        program.fragmentFunctionName = "fragment_main"
+        geometry?.firstMaterial?.program = program
+    }
+    
     func addNothingEffect() {
         let program = SCNProgram()
         program.vertexFunctionName = "nothingVertex"
@@ -190,13 +198,6 @@ private extension SCNNode {
         program.handleBinding(ofBufferNamed: "uniforms", frequency: .perFrame) { (bufferStream, node, shadable, renderer) in
             bufferStream.writeBytes(&myUniforms, count: MemoryLayout<FragmentUniforms>.stride)
         }
-    }
-    
-    func addSimpleEffect() {
-        let program = SCNProgram()
-        program.vertexFunctionName = "myVertex"
-        program.fragmentFunctionName = "myFragment"
-        geometry?.firstMaterial?.program = program
     }
 }
 

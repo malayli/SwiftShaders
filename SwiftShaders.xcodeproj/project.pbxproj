@@ -23,6 +23,7 @@
 		3A76627D234F2B3B009649F8 /* ThickRedLine.metal in Sources */ = {isa = PBXBuildFile; fileRef = 3A76627C234F2B3B009649F8 /* ThickRedLine.metal */; };
 		3A988A1123501F4200225FFE /* Nothing.metal in Sources */ = {isa = PBXBuildFile; fileRef = 3A988A1023501F4200225FFE /* Nothing.metal */; };
 		3AB0E4A4235012FB006A446C /* Triangles.metal in Sources */ = {isa = PBXBuildFile; fileRef = 3AB0E4A3235012FB006A446C /* Triangles.metal */; };
+		3AF2CB912350687E00B055D2 /* TextureSampler.metal in Sources */ = {isa = PBXBuildFile; fileRef = 3AF2CB902350687E00B055D2 /* TextureSampler.metal */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -65,6 +66,7 @@
 		3A76627C234F2B3B009649F8 /* ThickRedLine.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = ThickRedLine.metal; sourceTree = "<group>"; };
 		3A988A1023501F4200225FFE /* Nothing.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = Nothing.metal; sourceTree = "<group>"; };
 		3AB0E4A3235012FB006A446C /* Triangles.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = Triangles.metal; sourceTree = "<group>"; };
+		3AF2CB902350687E00B055D2 /* TextureSampler.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = TextureSampler.metal; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -130,6 +132,7 @@
 				3A76627C234F2B3B009649F8 /* ThickRedLine.metal */,
 				3AB0E4A3235012FB006A446C /* Triangles.metal */,
 				3A988A1023501F4200225FFE /* Nothing.metal */,
+				3AF2CB902350687E00B055D2 /* TextureSampler.metal */,
 			);
 			path = SwiftShaders;
 			sourceTree = "<group>";
@@ -287,6 +290,7 @@
 			files = (
 				3AB0E4A4235012FB006A446C /* Triangles.metal in Sources */,
 				3A76627B234F14D0009649F8 /* SwiftShadersScene.swift in Sources */,
+				3AF2CB912350687E00B055D2 /* TextureSampler.metal in Sources */,
 				1FE5FD6D234997D1009DF72F /* GameViewController.swift in Sources */,
 				1FE5FD9B234998FB009DF72F /* Shaders.swift in Sources */,
 				3A988A1123501F4200225FFE /* Nothing.metal in Sources */,
