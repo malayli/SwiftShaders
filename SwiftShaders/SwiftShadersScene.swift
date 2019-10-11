@@ -58,16 +58,34 @@ final class SwiftShadersScene: SCNScene {
         
         // Third Line: Metal Shaders
         
-        let geometry = SCNGeometry.lineThrough(points: [SCNVector3(-10, 0,0), SCNVector3(-10, 10, 0), SCNVector3(10, 10, 0), SCNVector3(10, 0, 0)],
-                                               width: 20,
-                                               closed: false,
-                                               color: UIColor.red.cgColor)
-        let node = SCNNode(geometry: geometry)
-        contentNode.addChildNode(node)
+//        let geometry = SCNGeometry.lineThrough(points: [SCNVector3(-10, 0,0), SCNVector3(-10, 10, 0), SCNVector3(10, 10, 0), SCNVector3(10, 0, 0)],
+//                                               width: 20,
+//                                               closed: false,
+//                                               color: UIColor.red.cgColor)
+//        let node = SCNNode(geometry: geometry)
+//        contentNode.addChildNode(node)
+
+//        let noNode = cubeNode(position: SCNVector3(-3, -3, 0), shaders: [:])
+//        noNode.addTexture()
+//        noNode.addNoEffect()
+//        contentNode.addChildNode(noNode)
+        
+//        let simpleNode = cubeNode(position: SCNVector3(-3, -3, 0), shaders: [:])
+//        simpleNode.addSimpleEffect()
+//        contentNode.addChildNode(simpleNode)
         
         let cloudNode = cubeNode(position: SCNVector3(0, -3, 0), shaders: [:])
         cloudNode.addCloudEffect()
         contentNode.addChildNode(cloudNode)
+        
+        let blurNode = cubeNode(position: SCNVector3(3, -3, 0), shaders: [:])
+        blurNode.addTrianglesEffect()
+        contentNode.addChildNode(blurNode)
+        
+        let nothingNode = cubeNode(position: SCNVector3(6, -3, 0), shaders: [:])
+        nothingNode.addTexture()
+        nothingNode.addNothingEffect()
+        contentNode.addChildNode(nothingNode)
     }
 }
 
@@ -141,6 +159,44 @@ private extension SCNNode {
         let intImage  = UIImage(named: "art.scnassets/sharpNoise.png")!
         let intImageProperty = SCNMaterialProperty(contents: intImage)
         geometry?.firstMaterial?.setValue(intImageProperty, forKey: "interferenceTexture")
+    }
+    
+    func addTrianglesEffect() {
+        let program = SCNProgram()
+        program.vertexFunctionName = "trianglequiltVertex"
+        program.fragmentFunctionName = "trianglequiltFragment"
+        
+        let gradientMaterial = SCNMaterial()
+        gradientMaterial.program = program
+        gradientMaterial.specular.contents = UIColor.black
+        gradientMaterial.locksAmbientWithDiffuse = true
+        geometry?.materials = [gradientMaterial]
+        geometry?.firstMaterial?.lightingModel = .constant
+    }
+    
+    func addNothingEffect() {
+        let program = SCNProgram()
+        program.vertexFunctionName = "nothingVertex"
+        program.fragmentFunctionName = "nothingFragment"
+        geometry?.firstMaterial?.program = program
+        
+        struct FragmentUniforms {
+            var brightness: Float = 1.0
+        }
+        
+        var myUniforms = FragmentUniforms()
+        myUniforms.brightness = 3.0
+        
+        program.handleBinding(ofBufferNamed: "uniforms", frequency: .perFrame) { (bufferStream, node, shadable, renderer) in
+            bufferStream.writeBytes(&myUniforms, count: MemoryLayout<FragmentUniforms>.stride)
+        }
+    }
+    
+    func addSimpleEffect() {
+        let program = SCNProgram()
+        program.vertexFunctionName = "myVertex"
+        program.fragmentFunctionName = "myFragment"
+        geometry?.firstMaterial?.program = program
     }
 }
 
