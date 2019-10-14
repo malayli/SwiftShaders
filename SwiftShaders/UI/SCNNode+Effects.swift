@@ -95,11 +95,11 @@ extension SCNNode {
             var color: Float = 1.0
         }
         
-        var myUniforms = FragmentUniforms()
-        myUniforms.color = 0.1
+        var uniforms = FragmentUniforms()
+        uniforms.color = 0.1
         
         program.handleBinding(ofBufferNamed: "uniforms", frequency: .perFrame) { (bufferStream, node, shadable, renderer) in
-            bufferStream.writeBytes(&myUniforms, count: MemoryLayout<FragmentUniforms>.stride)
+            bufferStream.writeBytes(&uniforms, count: MemoryLayout<FragmentUniforms>.stride)
         }
     }
     
@@ -119,11 +119,11 @@ extension SCNNode {
             var brightness: Float = 1.0
         }
         
-        var myUniforms = FragmentUniforms()
-        myUniforms.brightness = 2.0
+        var uniforms = FragmentUniforms()
+        uniforms.brightness = 2.0
         
         program.handleBinding(ofBufferNamed: "uniforms", frequency: .perFrame) { (bufferStream, node, shadable, renderer) in
-            bufferStream.writeBytes(&myUniforms, count: MemoryLayout<FragmentUniforms>.stride)
+            bufferStream.writeBytes(&uniforms, count: MemoryLayout<FragmentUniforms>.stride)
         }
     }
 }
