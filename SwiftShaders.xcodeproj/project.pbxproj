@@ -17,6 +17,8 @@
 		1F2209F12354262500DAF980 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F2209EF2354262500DAF980 /* GameViewController.swift */; };
 		1F2209F22354262500DAF980 /* SwiftShadersScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F2209F02354262500DAF980 /* SwiftShadersScene.swift */; };
 		1F2209F4235428FD00DAF980 /* TextureBrightness.metal in Sources */ = {isa = PBXBuildFile; fileRef = 1F2209F3235428FD00DAF980 /* TextureBrightness.metal */; };
+		1F2209F623542C9700DAF980 /* SCNGeometry+Line.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F2209F523542C9700DAF980 /* SCNGeometry+Line.swift */; };
+		1F2209F823542CBD00DAF980 /* SCNNode+Effects.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F2209F723542CBD00DAF980 /* SCNNode+Effects.swift */; };
 		1FE5FD69234997D1009DF72F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE5FD68234997D1009DF72F /* AppDelegate.swift */; };
 		1FE5FD6B234997D1009DF72F /* art.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = 1FE5FD6A234997D1009DF72F /* art.scnassets */; };
 		1FE5FD70234997D1009DF72F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1FE5FD6E234997D1009DF72F /* Main.storyboard */; };
@@ -55,6 +57,8 @@
 		1F2209EF2354262500DAF980 /* GameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
 		1F2209F02354262500DAF980 /* SwiftShadersScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftShadersScene.swift; sourceTree = "<group>"; };
 		1F2209F3235428FD00DAF980 /* TextureBrightness.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = TextureBrightness.metal; sourceTree = "<group>"; };
+		1F2209F523542C9700DAF980 /* SCNGeometry+Line.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SCNGeometry+Line.swift"; sourceTree = "<group>"; };
+		1F2209F723542CBD00DAF980 /* SCNNode+Effects.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SCNNode+Effects.swift"; sourceTree = "<group>"; };
 		1FE5FD65234997D1009DF72F /* SwiftShaders.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SwiftShaders.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1FE5FD68234997D1009DF72F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1FE5FD6A234997D1009DF72F /* art.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = art.scnassets; sourceTree = "<group>"; };
@@ -122,6 +126,8 @@
 			isa = PBXGroup;
 			children = (
 				1F2209EF2354262500DAF980 /* GameViewController.swift */,
+				1F2209F523542C9700DAF980 /* SCNGeometry+Line.swift */,
+				1F2209F723542CBD00DAF980 /* SCNNode+Effects.swift */,
 				1F2209F02354262500DAF980 /* SwiftShadersScene.swift */,
 			);
 			path = UI;
@@ -315,7 +321,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1F2209F623542C9700DAF980 /* SCNGeometry+Line.swift in Sources */,
 				1F2209E7235425A700DAF980 /* Triangles.metal in Sources */,
+				1F2209F823542CBD00DAF980 /* SCNNode+Effects.swift in Sources */,
 				1F2209E4235425A700DAF980 /* TextureSampler.metal in Sources */,
 				1F2209EC235425D900DAF980 /* Cloud.metal in Sources */,
 				1F2209E6235425A700DAF980 /* Color.metal in Sources */,
