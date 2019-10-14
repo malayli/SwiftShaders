@@ -23,7 +23,7 @@ final class SwiftShadersScene: SCNScene {
         contentNode.addChildNode(cubeNode(position: SCNVector3(-3, 3, 0), shaders: [.surface: simpleHalfColoringSurfaceShader]))
         
         let borgNode = cubeNode(position: SCNVector3(0, 3, 0), shaders: [.fragment: appearingFragmentShader])
-        borgNode.addRevealAnimation()
+        borgNode.addRevealAnimation("noise")
         contentNode.addChildNode(borgNode)
         
         contentNode.addChildNode(cubeNode(position: SCNVector3(3, 3, 0), shaders: [.surface: coloringSurfaceShader]))
@@ -33,26 +33,26 @@ final class SwiftShadersScene: SCNScene {
         // Second Line: Filters
         
         let texturedCubeNode = cubeNode(position: SCNVector3(-6, 0, 0), shaders: [:])
-        texturedCubeNode.addTexture()
+        texturedCubeNode.addTexture("customTexture")
         contentNode.addChildNode(texturedCubeNode)
         
         let blurredCubeNode = cubeNode(position: SCNVector3(-3, 0, 0), shaders: [:])
-        blurredCubeNode.addTexture()
+        blurredCubeNode.addTexture("customTexture")
         blurredCubeNode.addFilters(["CIGaussianBlur"])
         contentNode.addChildNode(blurredCubeNode)
         
         let pixellatedCubeNode = cubeNode(position: SCNVector3(0, 0, 0), shaders: [:])
-        pixellatedCubeNode.addTexture()
+        pixellatedCubeNode.addTexture("customTexture")
         pixellatedCubeNode.addFilters(["CIPixellate"])
         contentNode.addChildNode(pixellatedCubeNode)
         
         let bloomCubeNode = cubeNode(position: SCNVector3(3, 0, 0), shaders: [:])
-        bloomCubeNode.addTexture()
+        bloomCubeNode.addTexture("customTexture")
         bloomCubeNode.addFilters(["CIBloom"])
         contentNode.addChildNode(bloomCubeNode)
         
         let kaleidoscopeCubeNode = cubeNode(position: SCNVector3(6, 0, 0), shaders: [:])
-        kaleidoscopeCubeNode.addTexture()
+        kaleidoscopeCubeNode.addTexture("customTexture")
         kaleidoscopeCubeNode.addFilters(["CIThermal"])
         contentNode.addChildNode(kaleidoscopeCubeNode)
         

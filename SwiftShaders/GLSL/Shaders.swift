@@ -219,6 +219,8 @@ import Foundation
  
  */
 
+// MARK: - Surface
+
 let simpleHalfColoringSurfaceShader = """
 vec4 orig = _surface.diffuse;
 vec4 transformed_position = u_inverseModelTransform * u_inverseViewTransform * vec4(_surface.position, 1.0);
@@ -285,6 +287,8 @@ if ( (PIover2 + lineTolerance) > dotProduct && dotProduct > (PIover2 - lineToler
 }
 """
 
+// MARK: - Geometry
+
 let twistingGeometryShader = """
 // a function that creates a rotation transform matrix around X
 mat4 rotationAroundX(float angle)
@@ -307,6 +311,8 @@ _geometry.position *= rotationMatrix;
 vec4 twistedNormal = vec4(_geometry.normal, 1.0) * rotationMatrix;
 _geometry.normal   = twistedNormal.xyz;
 """
+
+// MARK: - Fragment
 
 let appearingFragmentShader =
 """

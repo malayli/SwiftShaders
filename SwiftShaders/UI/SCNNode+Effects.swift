@@ -1,6 +1,14 @@
 import SceneKit
 
 extension SCNNode {
+    func addTexture(_ imageName: String) {
+        geometry?.firstMaterial?.diffuse.contents = UIImage(named: imageName)
+    }
+}
+
+// MARK: - Animations
+
+extension SCNNode {
     func addAnimation(beginTime: CFTimeInterval = 0.0, duration: CFTimeInterval, from: NSValue, to: NSValue, key: String) {
         let animation = CABasicAnimation(keyPath: "rotation")
         animation.beginTime = beginTime
@@ -11,8 +19,8 @@ extension SCNNode {
         addAnimation(animation, forKey: key)
     }
     
-    func addRevealAnimation() {
-        if let noiseImage = UIImage(named: "noise") {
+    func addRevealAnimation(_ imageName: String) {
+        if let noiseImage = UIImage(named: imageName) {
             geometry?.firstMaterial?.setValue(SCNMaterialProperty(contents: noiseImage), forKey: "noiseTexture")
         }
         
@@ -28,11 +36,11 @@ extension SCNNode {
         let scnRevealAnimation = SCNAnimation(caAnimation: revealAnimation)
         geometry?.firstMaterial?.addAnimation(scnRevealAnimation, forKey: "Reveal")
     }
-    
-    func addTexture() {
-        geometry?.firstMaterial?.diffuse.contents = UIImage(named: "customTexture")
-    }
-    
+}
+
+// MARK: - CIFilter
+
+extension SCNNode {
     func addFilters(_ names: [String]) {
         names.forEach {
         if let filter = CIFilter(name: $0) {
@@ -41,7 +49,11 @@ extension SCNNode {
         }
         }
     }
-    
+}
+
+// MARK: - Metal
+
+extension SCNNode {
     func addCloudEffect() {
         let program = SCNProgram()
         program.vertexFunctionName = "cloudVertex"
