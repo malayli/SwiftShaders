@@ -58,31 +58,26 @@ final class SwiftShadersScene: SCNScene {
         
         // Third Line: Metal Shaders
         
-//        let geometry = SCNGeometry.lineThrough(points: [SCNVector3(-10, 0,0), SCNVector3(-10, 10, 0), SCNVector3(10, 10, 0), SCNVector3(10, 0, 0)],
-//                                               width: 20,
-//                                               closed: false,
-//                                               color: UIColor.red.cgColor)
-//        let node = SCNNode(geometry: geometry)
-//        contentNode.addChildNode(node)
-
-//        let noNode = cubeNode(position: SCNVector3(-3, -3, 0), shaders: [:])
-//        noNode.addTexture()
-//        noNode.addNoEffect()
-//        contentNode.addChildNode(noNode)
-
-        let textureSamplerNode = cubeNode(position: SCNVector3(-3, -3, 0), shaders: [:])
+        let geometry = SCNGeometry.lineThrough(points: [SCNVector3(-10, 0,0), SCNVector3(-10, 10, 0), SCNVector3(10, 10, 0), SCNVector3(10, 0, 0)],
+                                               width: 20,
+                                               closed: false,
+                                               color: UIColor.red.cgColor)
+        let node = SCNNode(geometry: geometry)
+        contentNode.addChildNode(node)
+        
+        let textureSamplerNode = cubeNode(position: SCNVector3(-6, -3, 0), shaders: [:])
         textureSamplerNode.addTextureSamplerEffect()
         contentNode.addChildNode(textureSamplerNode)
         
-        let cloudNode = cubeNode(position: SCNVector3(0, -3, 0), shaders: [:])
+        let cloudNode = cubeNode(position: SCNVector3(-3, -3, 0), shaders: [:])
         cloudNode.addCloudEffect()
         contentNode.addChildNode(cloudNode)
         
-        let blurNode = cubeNode(position: SCNVector3(3, -3, 0), shaders: [:])
+        let blurNode = cubeNode(position: SCNVector3(0, -3, 0), shaders: [:])
         blurNode.addTrianglesEffect()
         contentNode.addChildNode(blurNode)
         
-        let nothingNode = cubeNode(position: SCNVector3(6, -3, 0), shaders: [:])
+        let nothingNode = cubeNode(position: SCNVector3(3, -3, 0), shaders: [:])
         nothingNode.addColorEffect()
         contentNode.addChildNode(nothingNode)
     }
@@ -153,11 +148,12 @@ private extension SCNNode {
         program.isOpaque = false
         geometry?.firstMaterial?.program = program
         
-        let noiseImage  = UIImage(named: "art.scnassets/softNoise.png")!
+        guard let noiseImage  = UIImage(named: "art.scnassets/softNoise.png"),
+            let intImage  = UIImage(named: "art.scnassets/sharpNoise.png") else {
+            return
+        }
         let noiseImageProperty = SCNMaterialProperty(contents: noiseImage)
         geometry?.firstMaterial?.setValue(noiseImageProperty, forKey: "noiseTexture")
-        
-        let intImage  = UIImage(named: "art.scnassets/sharpNoise.png")!
         let intImageProperty = SCNMaterialProperty(contents: intImage)
         geometry?.firstMaterial?.setValue(intImageProperty, forKey: "interferenceTexture")
     }
@@ -181,9 +177,11 @@ private extension SCNNode {
         program.fragmentFunctionName = "textureSamplerFragment"
         geometry?.firstMaterial?.program = program
         
-        let noiseImage  = UIImage(named: "customTexture")!
-        let noiseImageProperty = SCNMaterialProperty(contents: noiseImage)
-        geometry?.firstMaterial?.setValue(noiseImageProperty, forKey: "customTexture")
+        guard let customeTextureImage  = UIImage(named: "customTexture") else {
+            return
+        }
+        let customeTextureImageProperty = SCNMaterialProperty(contents: customeTextureImage)
+        geometry?.firstMaterial?.setValue(customeTextureImageProperty, forKey: "customTexture")
     }
     
     func addColorEffect() {
@@ -206,7 +204,7 @@ private extension SCNNode {
 }
 
 extension SCNGeometry {
-    class func lineThrough(points: [SCNVector3], width:Int = 20, closed: Bool = false,  color: CGColor = UIColor.black.cgColor, mitter: Bool = false) -> SCNGeometry {
+    class func lineThrough(points: [SCNVector3], width:Int = 20, closed: Bool = false,  color: CGColor = UIColor.black.cgColor, mitter: Bool = false) -> SCNGeometry? {
         
         // Becouse we cannot use geometry shaders in metal, every point on the line has to be changed into 4 verticles
         let vertices: [SCNVector3] = points.flatMap { p in [p, p, p, p] }
@@ -233,7 +231,12 @@ extension SCNGeometry {
         geometry.setValue(NSData(bytes: floatPoints, length: MemoryLayout<SIMD3<Float>>.size * floatPoints.count), forKeyPath: "vertices")
         
         // map color into float
-        let colorFloat = color.components!.map { Float($0) }
+        guard let components = color.components else {
+            return nil
+        }
+        
+        let colorFloat = components.map { Float($0) }
+        
         geometry.setValue(NSData(bytes: colorFloat, length: MemoryLayout<simd_float1>.size * color.numberOfComponents), forKey: "color")
         
         // Set the shader program
