@@ -73,6 +73,5 @@ vertex VertexOut textureSamplerVertex(VertexInput in [[ stage_in ]], constant No
 
 fragment float4 textureSamplerFragment(VertexOut out [[ stage_in ]], texture2d<float, access::sample> customTexture [[texture(0)]]) {
     constexpr sampler softNoiseSampler(coord::normalized, filter::linear, address::repeat);
-    float4 softNoiseSample = customTexture.sample(softNoiseSampler, out.uv );
-    return softNoiseSample;
+    return customTexture.sample(softNoiseSampler, out.uv );
 }
