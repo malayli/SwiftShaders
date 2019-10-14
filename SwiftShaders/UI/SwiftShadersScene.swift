@@ -77,15 +77,15 @@ final class SwiftShadersScene: SCNScene {
         textureBrightnessSamplerNode.addTextureBrightnessSamplerEffect()
         contentNode.addChildNode(textureBrightnessSamplerNode)
         
-        let cloudNode = cubeNode(position: SCNVector3(0, -3, 0), shaders: [:])
+        let cloudNode = cubeNode(position: SCNVector3(2, -3, 0), shaders: [:])
         cloudNode.addCloudEffect()
         contentNode.addChildNode(cloudNode)
         
-        let trianglesNode = cubeNode(position: SCNVector3(2, -3, 0), shaders: [:])
+        let trianglesNode = cubeNode(position: SCNVector3(4, -3, 0), shaders: [:])
         trianglesNode.addTrianglesEffect()
         contentNode.addChildNode(trianglesNode)
         
-        let colorNode = cubeNode(position: SCNVector3(4, -3, 0), shaders: [:])
+        let colorNode = cubeNode(position: SCNVector3(6, -3, 0), shaders: [:])
         colorNode.addColorEffect(red: 40, green: 80, blue: 160)
         contentNode.addChildNode(colorNode)
     }
