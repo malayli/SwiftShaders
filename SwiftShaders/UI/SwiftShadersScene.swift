@@ -58,26 +58,30 @@ final class SwiftShadersScene: SCNScene {
         
         // Third Line: Metal Shaders
         
-        let geometry = SCNGeometry.lineThrough(points: [SCNVector3(-10, 0,0), SCNVector3(-10, 10, 0), SCNVector3(10, 10, 0), SCNVector3(10, 0, 0)],
-                                               width: 20,
-                                               closed: false,
-                                               color: UIColor.red.cgColor)
-        let node = SCNNode(geometry: geometry)
-        contentNode.addChildNode(node)
+//        let geometry = SCNGeometry.lineThrough(points: [SCNVector3(-10, 0,0), SCNVector3(-10, 10, 0), SCNVector3(10, 10, 0), SCNVector3(10, 0, 0)],
+//                                               width: 20,
+//                                               closed: false,
+//                                               color: UIColor.red.cgColor)
+//        let node = SCNNode(geometry: geometry)
+//        contentNode.addChildNode(node)
         
         let textureSamplerNode = cubeNode(position: SCNVector3(-6, -3, 0), shaders: [:])
         textureSamplerNode.addTextureSamplerEffect()
         contentNode.addChildNode(textureSamplerNode)
         
-        let cloudNode = cubeNode(position: SCNVector3(-3, -3, 0), shaders: [:])
+        let textureBrightnessSamplerNode = cubeNode(position: SCNVector3(-3, -3, 0), shaders: [:])
+        textureBrightnessSamplerNode.addTextureBrightnessSamplerEffect()
+        contentNode.addChildNode(textureBrightnessSamplerNode)
+        
+        let cloudNode = cubeNode(position: SCNVector3(0, -3, 0), shaders: [:])
         cloudNode.addCloudEffect()
         contentNode.addChildNode(cloudNode)
         
-        let blurNode = cubeNode(position: SCNVector3(0, -3, 0), shaders: [:])
+        let blurNode = cubeNode(position: SCNVector3(3, -3, 0), shaders: [:])
         blurNode.addTrianglesEffect()
         contentNode.addChildNode(blurNode)
         
-        let nothingNode = cubeNode(position: SCNVector3(3, -3, 0), shaders: [:])
+        let nothingNode = cubeNode(position: SCNVector3(6, -3, 0), shaders: [:])
         nothingNode.addColorEffect()
         contentNode.addChildNode(nothingNode)
     }
@@ -196,6 +200,30 @@ private extension SCNNode {
         
         var myUniforms = FragmentUniforms()
         myUniforms.color = 0.1
+        
+        program.handleBinding(ofBufferNamed: "uniforms", frequency: .perFrame) { (bufferStream, node, shadable, renderer) in
+            bufferStream.writeBytes(&myUniforms, count: MemoryLayout<FragmentUniforms>.stride)
+        }
+    }
+    
+    func addTextureBrightnessSamplerEffect() {
+        let program = SCNProgram()
+        program.vertexFunctionName = "textureBrightnessSamplerVertex"
+        program.fragmentFunctionName = "textureBrightnessSamplerFragment"
+        geometry?.firstMaterial?.program = program
+        
+        guard let customeTextureImage  = UIImage(named: "customTexture") else {
+            return
+        }
+        let customeTextureImageProperty = SCNMaterialProperty(contents: customeTextureImage)
+        geometry?.firstMaterial?.setValue(customeTextureImageProperty, forKey: "customTexture")
+        
+        struct FragmentUniforms {
+            var brightness: Float = 1.0
+        }
+        
+        var myUniforms = FragmentUniforms()
+        myUniforms.brightness = 2.0
         
         program.handleBinding(ofBufferNamed: "uniforms", frequency: .perFrame) { (bufferStream, node, shadable, renderer) in
             bufferStream.writeBytes(&myUniforms, count: MemoryLayout<FragmentUniforms>.stride)
