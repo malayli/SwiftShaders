@@ -32,17 +32,14 @@ vertex VertexOut gaussianBlurVertex(VertexInput in [[ stage_in ]], constant Node
 fragment float4 gaussianBlurFragment(VertexOut fragmentIn [[ stage_in ]],
                                      texture2d<float, access::sample> customTexture [[texture(0)]]) {
     float2 offset = fragmentIn.uv;
-    constexpr sampler qsampler(coord::normalized,
-                               address::clamp_to_edge);
+    constexpr sampler qsampler(coord::normalized,address::clamp_to_edge);
 //    float4 color = texture.sample(qsampler, coordinates);
     float width = customTexture.get_width();
     float height = customTexture.get_width();
     float xPixel = (1 / width) * 3;
     float yPixel = (1 / height) * 2;
     
-    
     float3 sum = float3(0.0, 0.0, 0.0);
-    
     
     // code from https://github.com/mattdesl/lwjgl-basics/wiki/ShaderLesson5
     

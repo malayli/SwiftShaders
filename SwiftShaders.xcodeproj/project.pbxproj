@@ -105,9 +105,9 @@
 		1F2209DA235425A700DAF980 /* Metal */ = {
 			isa = PBXGroup;
 			children = (
-				1F2209F923547E1400DAF980 /* GaussianBlur.metal */,
 				1F2209EA235425D900DAF980 /* Cloud.metal */,
 				1F2209DE235425A700DAF980 /* Color.metal */,
+				1F2209F923547E1400DAF980 /* GaussianBlur.metal */,
 				1F2209EB235425D900DAF980 /* Pixelate.metal */,
 				1F2209F3235428FD00DAF980 /* TextureBrightness.metal */,
 				1F2209DC235425A700DAF980 /* TextureSampler.metal */,
