@@ -19,6 +19,7 @@
 		1F2209F4235428FD00DAF980 /* TextureBrightness.metal in Sources */ = {isa = PBXBuildFile; fileRef = 1F2209F3235428FD00DAF980 /* TextureBrightness.metal */; };
 		1F2209F623542C9700DAF980 /* SCNGeometry+Line.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F2209F523542C9700DAF980 /* SCNGeometry+Line.swift */; };
 		1F2209F823542CBD00DAF980 /* SCNNode+Effects.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F2209F723542CBD00DAF980 /* SCNNode+Effects.swift */; };
+		1F2209FA23547E1400DAF980 /* GaussianBlur.metal in Sources */ = {isa = PBXBuildFile; fileRef = 1F2209F923547E1400DAF980 /* GaussianBlur.metal */; };
 		1FE5FD69234997D1009DF72F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE5FD68234997D1009DF72F /* AppDelegate.swift */; };
 		1FE5FD6B234997D1009DF72F /* art.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = 1FE5FD6A234997D1009DF72F /* art.scnassets */; };
 		1FE5FD70234997D1009DF72F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1FE5FD6E234997D1009DF72F /* Main.storyboard */; };
@@ -59,6 +60,7 @@
 		1F2209F3235428FD00DAF980 /* TextureBrightness.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = TextureBrightness.metal; sourceTree = "<group>"; };
 		1F2209F523542C9700DAF980 /* SCNGeometry+Line.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SCNGeometry+Line.swift"; sourceTree = "<group>"; };
 		1F2209F723542CBD00DAF980 /* SCNNode+Effects.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SCNNode+Effects.swift"; sourceTree = "<group>"; };
+		1F2209F923547E1400DAF980 /* GaussianBlur.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = GaussianBlur.metal; sourceTree = "<group>"; };
 		1FE5FD65234997D1009DF72F /* SwiftShaders.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SwiftShaders.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1FE5FD68234997D1009DF72F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1FE5FD6A234997D1009DF72F /* art.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = art.scnassets; sourceTree = "<group>"; };
@@ -103,6 +105,7 @@
 		1F2209DA235425A700DAF980 /* Metal */ = {
 			isa = PBXGroup;
 			children = (
+				1F2209F923547E1400DAF980 /* GaussianBlur.metal */,
 				1F2209EA235425D900DAF980 /* Cloud.metal */,
 				1F2209DE235425A700DAF980 /* Color.metal */,
 				1F2209EB235425D900DAF980 /* Pixelate.metal */,
@@ -327,6 +330,7 @@
 				1F2209E4235425A700DAF980 /* TextureSampler.metal in Sources */,
 				1F2209EC235425D900DAF980 /* Cloud.metal in Sources */,
 				1F2209E6235425A700DAF980 /* Color.metal in Sources */,
+				1F2209FA23547E1400DAF980 /* GaussianBlur.metal in Sources */,
 				1F2209F12354262500DAF980 /* GameViewController.swift in Sources */,
 				1F2209F4235428FD00DAF980 /* TextureBrightness.metal in Sources */,
 				1F2209E9235425A700DAF980 /* Shaders.swift in Sources */,

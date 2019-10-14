@@ -84,6 +84,30 @@ extension SCNNode {
         geometry?.firstMaterial?.lightingModel = .constant
     }
     
+    func addColorEffect(red: Float, green: Float, blue: Float) {
+        let program = SCNProgram()
+        program.vertexFunctionName = "colorVertex"
+        program.fragmentFunctionName = "colorFragment"
+        geometry?.firstMaterial?.program = program
+        
+        struct FragmentUniforms {
+            var colorR: Float = 1.0
+            var colorG: Float = 1.0
+            var colorB: Float = 1.0
+        }
+        
+        var uniforms = FragmentUniforms()
+        uniforms.colorR = red/255.0
+        uniforms.colorG = green/255.0
+        uniforms.colorB = blue/255.0
+        
+        program.handleBinding(ofBufferNamed: "uniforms", frequency: .perFrame) { (bufferStream, node, shadable, renderer) in
+            bufferStream.writeBytes(&uniforms, count: MemoryLayout<FragmentUniforms>.stride)
+        }
+    }
+}
+
+extension SCNNode {
     func addTextureSamplerEffect() {
         let program = SCNProgram()
         program.vertexFunctionName = "textureSamplerVertex"
@@ -95,24 +119,6 @@ extension SCNNode {
         }
         let customeTextureImageProperty = SCNMaterialProperty(contents: customeTextureImage)
         geometry?.firstMaterial?.setValue(customeTextureImageProperty, forKey: "customTexture")
-    }
-    
-    func addColorEffect() {
-        let program = SCNProgram()
-        program.vertexFunctionName = "colorVertex"
-        program.fragmentFunctionName = "colorFragment"
-        geometry?.firstMaterial?.program = program
-        
-        struct FragmentUniforms {
-            var color: Float = 1.0
-        }
-        
-        var uniforms = FragmentUniforms()
-        uniforms.color = 0.1
-        
-        program.handleBinding(ofBufferNamed: "uniforms", frequency: .perFrame) { (bufferStream, node, shadable, renderer) in
-            bufferStream.writeBytes(&uniforms, count: MemoryLayout<FragmentUniforms>.stride)
-        }
     }
     
     func addTextureBrightnessSamplerEffect() {
@@ -137,5 +143,18 @@ extension SCNNode {
         program.handleBinding(ofBufferNamed: "uniforms", frequency: .perFrame) { (bufferStream, node, shadable, renderer) in
             bufferStream.writeBytes(&uniforms, count: MemoryLayout<FragmentUniforms>.stride)
         }
+    }
+    
+    func addBlurEffect() {
+        let program = SCNProgram()
+        program.vertexFunctionName = "gaussianBlurVertex"
+        program.fragmentFunctionName = "gaussianBlurFragment"
+        geometry?.firstMaterial?.program = program
+        
+        guard let customeTextureImage  = UIImage(named: "customTexture") else {
+            return
+        }
+        let customeTextureImageProperty = SCNMaterialProperty(contents: customeTextureImage)
+        geometry?.firstMaterial?.setValue(customeTextureImageProperty, forKey: "customTexture")
     }
 }

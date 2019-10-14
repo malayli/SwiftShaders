@@ -20,15 +20,15 @@ final class SwiftShadersScene: SCNScene {
         
         contentNode.addChildNode(cubeNode(position: SCNVector3(-6, 3, 0), shaders: [.surface: simpleHalfColoringFromScreenSizeSurfaceShader]))
         
-        contentNode.addChildNode(cubeNode(position: SCNVector3(-3, 3, 0), shaders: [.surface: simpleHalfColoringSurfaceShader]))
+        contentNode.addChildNode(cubeNode(position: SCNVector3(-4, 3, 0), shaders: [.surface: simpleHalfColoringSurfaceShader]))
         
-        let borgNode = cubeNode(position: SCNVector3(0, 3, 0), shaders: [.fragment: appearingFragmentShader])
+        let borgNode = cubeNode(position: SCNVector3(-2, 3, 0), shaders: [.fragment: appearingFragmentShader])
         borgNode.addRevealAnimation("noise")
         contentNode.addChildNode(borgNode)
         
-        contentNode.addChildNode(cubeNode(position: SCNVector3(3, 3, 0), shaders: [.surface: coloringSurfaceShader]))
+        contentNode.addChildNode(cubeNode(position: SCNVector3(0, 3, 0), shaders: [.surface: coloringSurfaceShader]))
         
-        contentNode.addChildNode(cubeNode(position: SCNVector3(6, 3, 0), shaders: [.geometry: twistingGeometryShader]))
+        contentNode.addChildNode(cubeNode(position: SCNVector3(2, 3, 0), shaders: [.geometry: twistingGeometryShader]))
         
         // Second Line: Filters
         
@@ -36,40 +36,44 @@ final class SwiftShadersScene: SCNScene {
         texturedCubeNode.addTexture("customTexture")
         contentNode.addChildNode(texturedCubeNode)
         
-        let blurredCubeNode = cubeNode(position: SCNVector3(-3, 0, 0), shaders: [:])
+        let blurredCubeNode = cubeNode(position: SCNVector3(-4, 0, 0), shaders: [:])
         blurredCubeNode.addTexture("customTexture")
         blurredCubeNode.addFilters(["CIGaussianBlur"])
         contentNode.addChildNode(blurredCubeNode)
+        
+        let bloomCubeNode = cubeNode(position: SCNVector3(-2, 0, 0), shaders: [:])
+        bloomCubeNode.addTexture("customTexture")
+        bloomCubeNode.addFilters(["CIBloom"])
+        contentNode.addChildNode(bloomCubeNode)
         
         let pixellatedCubeNode = cubeNode(position: SCNVector3(0, 0, 0), shaders: [:])
         pixellatedCubeNode.addTexture("customTexture")
         pixellatedCubeNode.addFilters(["CIPixellate"])
         contentNode.addChildNode(pixellatedCubeNode)
         
-        let bloomCubeNode = cubeNode(position: SCNVector3(3, 0, 0), shaders: [:])
-        bloomCubeNode.addTexture("customTexture")
-        bloomCubeNode.addFilters(["CIBloom"])
-        contentNode.addChildNode(bloomCubeNode)
-        
-        let kaleidoscopeCubeNode = cubeNode(position: SCNVector3(6, 0, 0), shaders: [:])
+        let kaleidoscopeCubeNode = cubeNode(position: SCNVector3(2, 0, 0), shaders: [:])
         kaleidoscopeCubeNode.addTexture("customTexture")
         kaleidoscopeCubeNode.addFilters(["CIThermal"])
         contentNode.addChildNode(kaleidoscopeCubeNode)
         
         // Third Line: Metal Shaders
         
-        let geometry = SCNGeometry.lineThrough(points: [SCNVector3(-10, 0,0), SCNVector3(-10, 10, 0), SCNVector3(10, 10, 0), SCNVector3(10, 0, 0)],
-                                               width: 20,
-                                               closed: false,
-                                               color: UIColor.red.cgColor)
-        let node = SCNNode(geometry: geometry)
-        contentNode.addChildNode(node)
+//        let geometry = SCNGeometry.lineThrough(points: [SCNVector3(-10, 0,0), SCNVector3(-10, 10, 0), SCNVector3(10, 10, 0), SCNVector3(10, 0, 0)],
+//                                               width: 20,
+//                                               closed: false,
+//                                               color: UIColor.red.cgColor)
+//        let node = SCNNode(geometry: geometry)
+//        contentNode.addChildNode(node)
         
         let textureSamplerNode = cubeNode(position: SCNVector3(-6, -3, 0), shaders: [:])
         textureSamplerNode.addTextureSamplerEffect()
         contentNode.addChildNode(textureSamplerNode)
         
-        let textureBrightnessSamplerNode = cubeNode(position: SCNVector3(-3, -3, 0), shaders: [:])
+        let blurNode = cubeNode(position: SCNVector3(-4, -3, 0), shaders: [:])
+        blurNode.addBlurEffect()
+        contentNode.addChildNode(blurNode)
+        
+        let textureBrightnessSamplerNode = cubeNode(position: SCNVector3(-2, -3, 0), shaders: [:])
         textureBrightnessSamplerNode.addTextureBrightnessSamplerEffect()
         contentNode.addChildNode(textureBrightnessSamplerNode)
         
@@ -77,13 +81,13 @@ final class SwiftShadersScene: SCNScene {
         cloudNode.addCloudEffect()
         contentNode.addChildNode(cloudNode)
         
-        let blurNode = cubeNode(position: SCNVector3(3, -3, 0), shaders: [:])
-        blurNode.addTrianglesEffect()
-        contentNode.addChildNode(blurNode)
+        let trianglesNode = cubeNode(position: SCNVector3(2, -3, 0), shaders: [:])
+        trianglesNode.addTrianglesEffect()
+        contentNode.addChildNode(trianglesNode)
         
-        let nothingNode = cubeNode(position: SCNVector3(6, -3, 0), shaders: [:])
-        nothingNode.addColorEffect()
-        contentNode.addChildNode(nothingNode)
+        let colorNode = cubeNode(position: SCNVector3(4, -3, 0), shaders: [:])
+        colorNode.addColorEffect(red: 40, green: 80, blue: 160)
+        contentNode.addChildNode(colorNode)
     }
 }
 
