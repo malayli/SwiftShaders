@@ -2,7 +2,7 @@
 using namespace metal;
 #include <SceneKit/scn_metal>
 
-struct MyNodeBuffer {
+struct NodeBuffer {
     float4x4 modelTransform;
     float4x4 modelViewTransform;
     float4x4 normalTransform;
@@ -13,33 +13,26 @@ struct MyNodeBuffer {
 struct VertexInput {
     float3 position [[ attribute(SCNVertexSemanticPosition) ]];
     float2 texCoords [[ attribute(SCNVertexSemanticTexcoord0) ]];
-    float3 normal  [[ attribute(SCNVertexSemanticNormal) ]];
 };
 
 struct VertexOut
 {
-    float4 color;
     float4 position [[position]];
     float2 uv;
-    float3 normal;
 };
 
 struct FragmentUniforms {
-    float brightness;
+    float color;
 };
 
-vertex VertexOut nothingVertex(VertexInput in [[ stage_in ]],
-                                     constant SCNSceneBuffer& scn_frame [[buffer(0)]],
-                                     constant MyNodeBuffer& scn_node [[buffer(1)]])
-{
+vertex VertexOut colorVertex(VertexInput in [[ stage_in ]], constant NodeBuffer& scn_node [[buffer(1)]]) {
     VertexOut out;
     out.position = scn_node.modelViewProjectionTransform * float4(in.position, 1.0);
     out.uv = in.texCoords;
-    out.normal = in.normal;
     return out;
 }
 
-fragment float4 nothingFragment(VertexOut vertexOut [[stage_in]], constant FragmentUniforms &uniforms [[buffer(0)]])
+fragment float4 colorFragment(VertexOut vertexOut [[stage_in]], constant FragmentUniforms &uniforms [[buffer(0)]])
 {
-    return float4(uniforms.brightness * vertexOut.color.rgb, vertexOut.color.a);
+    return float4(uniforms.color, uniforms.color, uniforms.color, 1);
 }

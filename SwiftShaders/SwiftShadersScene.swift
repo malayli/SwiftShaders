@@ -71,7 +71,6 @@ final class SwiftShadersScene: SCNScene {
 //        contentNode.addChildNode(noNode)
 
         let textureSamplerNode = cubeNode(position: SCNVector3(-3, -3, 0), shaders: [:])
-        textureSamplerNode.addTexture()
         textureSamplerNode.addTextureSamplerEffect()
         contentNode.addChildNode(textureSamplerNode)
         
@@ -84,8 +83,7 @@ final class SwiftShadersScene: SCNScene {
         contentNode.addChildNode(blurNode)
         
         let nothingNode = cubeNode(position: SCNVector3(6, -3, 0), shaders: [:])
-        nothingNode.addTexture()
-        nothingNode.addNothingEffect()
+        nothingNode.addColorEffect()
         contentNode.addChildNode(nothingNode)
     }
 }
@@ -136,7 +134,7 @@ private extension SCNNode {
     }
     
     func addTexture() {
-        geometry?.firstMaterial?.diffuse.contents = UIImage(named: "texture")
+        geometry?.firstMaterial?.diffuse.contents = UIImage(named: "customTexture")
     }
     
     func addFilters(_ names: [String]) {
@@ -154,9 +152,11 @@ private extension SCNNode {
         program.fragmentFunctionName = "cloudFragment"
         program.isOpaque = false
         geometry?.firstMaterial?.program = program
+        
         let noiseImage  = UIImage(named: "art.scnassets/softNoise.png")!
         let noiseImageProperty = SCNMaterialProperty(contents: noiseImage)
         geometry?.firstMaterial?.setValue(noiseImageProperty, forKey: "noiseTexture")
+        
         let intImage  = UIImage(named: "art.scnassets/sharpNoise.png")!
         let intImageProperty = SCNMaterialProperty(contents: intImage)
         geometry?.firstMaterial?.setValue(intImageProperty, forKey: "interferenceTexture")
@@ -177,23 +177,27 @@ private extension SCNNode {
     
     func addTextureSamplerEffect() {
         let program = SCNProgram()
-        program.vertexFunctionName = "vertex_main"
-        program.fragmentFunctionName = "fragment_main"
+        program.vertexFunctionName = "textureSamplerVertex"
+        program.fragmentFunctionName = "textureSamplerFragment"
         geometry?.firstMaterial?.program = program
+        
+        let noiseImage  = UIImage(named: "customTexture")!
+        let noiseImageProperty = SCNMaterialProperty(contents: noiseImage)
+        geometry?.firstMaterial?.setValue(noiseImageProperty, forKey: "customTexture")
     }
     
-    func addNothingEffect() {
+    func addColorEffect() {
         let program = SCNProgram()
-        program.vertexFunctionName = "nothingVertex"
-        program.fragmentFunctionName = "nothingFragment"
+        program.vertexFunctionName = "colorVertex"
+        program.fragmentFunctionName = "colorFragment"
         geometry?.firstMaterial?.program = program
         
         struct FragmentUniforms {
-            var brightness: Float = 1.0
+            var color: Float = 1.0
         }
         
         var myUniforms = FragmentUniforms()
-        myUniforms.brightness = 3.0
+        myUniforms.color = 0.1
         
         program.handleBinding(ofBufferNamed: "uniforms", frequency: .perFrame) { (bufferStream, node, shadable, renderer) in
             bufferStream.writeBytes(&myUniforms, count: MemoryLayout<FragmentUniforms>.stride)

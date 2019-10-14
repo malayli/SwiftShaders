@@ -46,7 +46,7 @@ using namespace metal;
 // float2x3 boundingBox;
 // float2x3 worldBoundingBox;
 
-struct MyNodeBuffer {
+struct NodeBuffer {
     float4x4 modelTransform;
     float4x4 modelViewProjectionTransform;
     float4x4 modelViewTransform;
@@ -55,29 +55,24 @@ struct MyNodeBuffer {
 };
 
 struct VertexInput {
-    float3 position  [[attribute(0)]];
-    float3 normal    [[attribute(1)]];
-    float2 tangent [[attribute(2)]];
-    float4 color [[attribute(3)]];
+    float3 position  [[attribute(SCNVertexSemanticPosition)]];
+    float2 texCoords [[ attribute(SCNVertexSemanticTexcoord0) ]];
 };
 
-struct VertexOut
-{
+struct VertexOut {
     float4 position [[position]];
-    float3 normal;
     float2 uv;
-    float4 color;
 };
 
-vertex VertexOut vertex_main(VertexInput in [[ stage_in ]], constant MyNodeBuffer& scn_node [[buffer(1)]])
-{
+vertex VertexOut textureSamplerVertex(VertexInput in [[ stage_in ]], constant NodeBuffer& scn_node [[buffer(1)]]) {
     VertexOut out;
     out.position = scn_node.modelViewProjectionTransform * float4(in.position, 1.0);
-    out.normal = in.normal;
+    out.uv = in.texCoords;
     return out;
 }
 
-fragment float4 fragment_main(VertexOut out [[ stage_in ]])
-{
-    return out.color;
+fragment float4 textureSamplerFragment(VertexOut out [[ stage_in ]], texture2d<float, access::sample> customTexture [[texture(0)]]) {
+    constexpr sampler softNoiseSampler(coord::normalized, filter::linear, address::repeat);
+    float4 softNoiseSample = customTexture.sample(softNoiseSampler, out.uv );
+    return softNoiseSample;
 }
