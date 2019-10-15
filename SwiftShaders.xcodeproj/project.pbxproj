@@ -27,7 +27,8 @@
 		1FE5FD75234997D2009DF72F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1FE5FD73234997D2009DF72F /* LaunchScreen.storyboard */; };
 		1FE5FD80234997D2009DF72F /* SwiftShadersTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE5FD7F234997D2009DF72F /* SwiftShadersTests.swift */; };
 		1FE5FD8B234997D2009DF72F /* SwiftShadersUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE5FD8A234997D2009DF72F /* SwiftShadersUITests.swift */; };
-		3A4B2C64235573F400ED6939 /* Notes.txt in Resources */ = {isa = PBXBuildFile; fileRef = 3A4B2C63235573F400ED6939 /* Notes.txt */; };
+		3A4B2C64235573F400ED6939 /* MetalNotes.txt in Resources */ = {isa = PBXBuildFile; fileRef = 3A4B2C63235573F400ED6939 /* MetalNotes.txt */; };
+		3A562579235578D700848C7D /* GLSL_Notes.txt in Resources */ = {isa = PBXBuildFile; fileRef = 3A562578235578D700848C7D /* GLSL_Notes.txt */; };
 		3A766273234ECF0A009649F8 /* pixelate.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3A766272234ECF0A009649F8 /* pixelate.plist */; };
 /* End PBXBuildFile section */
 
@@ -75,7 +76,8 @@
 		1FE5FD86234997D2009DF72F /* SwiftShadersUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SwiftShadersUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1FE5FD8A234997D2009DF72F /* SwiftShadersUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftShadersUITests.swift; sourceTree = "<group>"; };
 		1FE5FD8C234997D2009DF72F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		3A4B2C63235573F400ED6939 /* Notes.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = Notes.txt; sourceTree = "<group>"; };
+		3A4B2C63235573F400ED6939 /* MetalNotes.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = MetalNotes.txt; sourceTree = "<group>"; };
+		3A562578235578D700848C7D /* GLSL_Notes.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = GLSL_Notes.txt; sourceTree = "<group>"; };
 		3A766272234ECF0A009649F8 /* pixelate.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = pixelate.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -110,7 +112,7 @@
 				1F2209EA235425D900DAF980 /* Cloud.metal */,
 				1F2209DE235425A700DAF980 /* Color.metal */,
 				1F2209F923547E1400DAF980 /* GaussianBlur.metal */,
-				3A4B2C63235573F400ED6939 /* Notes.txt */,
+				3A4B2C63235573F400ED6939 /* MetalNotes.txt */,
 				1F2209EB235425D900DAF980 /* Pixelate.metal */,
 				1F2209F3235428FD00DAF980 /* TextureBrightness.metal */,
 				1F2209DC235425A700DAF980 /* TextureSampler.metal */,
@@ -123,6 +125,7 @@
 		1F2209E1235425A700DAF980 /* GLSL */ = {
 			isa = PBXGroup;
 			children = (
+				3A562578235578D700848C7D /* GLSL_Notes.txt */,
 				1F2209E2235425A700DAF980 /* Shaders.swift */,
 			);
 			path = GLSL;
@@ -302,7 +305,8 @@
 				1FE5FD75234997D2009DF72F /* LaunchScreen.storyboard in Resources */,
 				1FE5FD72234997D2009DF72F /* Assets.xcassets in Resources */,
 				3A766273234ECF0A009649F8 /* pixelate.plist in Resources */,
-				3A4B2C64235573F400ED6939 /* Notes.txt in Resources */,
+				3A562579235578D700848C7D /* GLSL_Notes.txt in Resources */,
+				3A4B2C64235573F400ED6939 /* MetalNotes.txt in Resources */,
 				1FE5FD70234997D1009DF72F /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

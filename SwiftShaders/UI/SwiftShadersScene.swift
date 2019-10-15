@@ -66,15 +66,15 @@ final class SwiftShadersScene: SCNScene {
 //        contentNode.addChildNode(node)
         
         let textureSamplerNode = cubeNode(position: SCNVector3(-6, -3, 0), shaders: [:])
-        textureSamplerNode.addTextureSamplerEffect()
+        textureSamplerNode.addProgramWithTexture("customTexture")
         contentNode.addChildNode(textureSamplerNode)
         
         let blurNode = cubeNode(position: SCNVector3(-4, -3, 0), shaders: [:])
-        blurNode.addGaussianBlurEffect(4)
+        blurNode.addGaussianBlurEffect("customTexture", blur: 4)
         contentNode.addChildNode(blurNode)
         
         let textureBrightnessSamplerNode = cubeNode(position: SCNVector3(-2, -3, 0), shaders: [:])
-        textureBrightnessSamplerNode.addTextureBrightnessSamplerEffect()
+        textureBrightnessSamplerNode.addProgramWithTexture("customTexture", brightness: 2.0)
         contentNode.addChildNode(textureBrightnessSamplerNode)
         
         let cloudNode = cubeNode(position: SCNVector3(2, -3, 0), shaders: [:])

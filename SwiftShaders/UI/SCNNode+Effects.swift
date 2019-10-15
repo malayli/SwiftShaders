@@ -105,29 +105,27 @@ extension SCNNode {
             bufferStream.writeBytes(&uniforms, count: MemoryLayout<FragmentUniforms>.stride)
         }
     }
-}
-
-extension SCNNode {
-    func addTextureSamplerEffect() {
+    
+    func addProgramWithTexture(_ name: String) {
         let program = SCNProgram()
         program.vertexFunctionName = "textureSamplerVertex"
         program.fragmentFunctionName = "textureSamplerFragment"
         geometry?.firstMaterial?.program = program
         
-        guard let customTextureImage  = UIImage(named: "customTexture") else {
+        guard let customTextureImage  = UIImage(named: name) else {
             return
         }
         let materialProperty = SCNMaterialProperty(contents: customTextureImage)
         geometry?.firstMaterial?.setValue(materialProperty, forKey: "customTexture")
     }
     
-    func addTextureBrightnessSamplerEffect() {
+    func addProgramWithTexture(_ name: String, brightness: Float) {
         let program = SCNProgram()
         program.vertexFunctionName = "textureBrightnessSamplerVertex"
         program.fragmentFunctionName = "textureBrightnessSamplerFragment"
         geometry?.firstMaterial?.program = program
         
-        guard let customTextureImage  = UIImage(named: "customTexture") else {
+        guard let customTextureImage  = UIImage(named: name) else {
             return
         }
         let materialProperty = SCNMaterialProperty(contents: customTextureImage)
@@ -138,20 +136,20 @@ extension SCNNode {
         }
         
         var uniforms = FragmentUniforms()
-        uniforms.brightness = 2.0
+        uniforms.brightness = brightness
         
         program.handleBinding(ofBufferNamed: "uniforms", frequency: .perFrame) { (bufferStream, node, shadable, renderer) in
             bufferStream.writeBytes(&uniforms, count: MemoryLayout<FragmentUniforms>.stride)
         }
     }
     
-    func addGaussianBlurEffect(_ blur: Float) {
+    func addGaussianBlurEffect(_ name: String, blur: Float) {
         let program = SCNProgram()
         program.vertexFunctionName = "gaussianBlurVertex"
         program.fragmentFunctionName = "gaussianBlurFragment"
         geometry?.firstMaterial?.program = program
         
-        guard let customTextureImage  = UIImage(named: "customTexture") else {
+        guard let customTextureImage  = UIImage(named: name) else {
             return
         }
         let materialProperty = SCNMaterialProperty(contents: customTextureImage)
