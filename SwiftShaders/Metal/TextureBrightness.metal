@@ -34,6 +34,6 @@ vertex VertexOut textureBrightnessSamplerVertex(VertexInput in [[ stage_in ]], c
 }
 
 fragment float4 textureBrightnessSamplerFragment(VertexOut out [[ stage_in ]], texture2d<float, access::sample> customTexture [[texture(0)]], constant FragmentUniforms &uniforms [[buffer(0)]]) {
-    constexpr sampler softNoiseSampler(coord::normalized, filter::linear, address::repeat);
-    return customTexture.sample(softNoiseSampler, out.uv).rgba * uniforms.brightness;
+    constexpr sampler textureSampler(coord::normalized, filter::linear, address::repeat);
+    return customTexture.sample(textureSampler, out.uv).rgba * uniforms.brightness;
 }

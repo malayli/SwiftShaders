@@ -70,7 +70,7 @@ final class SwiftShadersScene: SCNScene {
         contentNode.addChildNode(textureSamplerNode)
         
         let blurNode = cubeNode(position: SCNVector3(-4, -3, 0), shaders: [:])
-        blurNode.addBlurEffect()
+        blurNode.addGaussianBlurEffect()
         contentNode.addChildNode(blurNode)
         
         let textureBrightnessSamplerNode = cubeNode(position: SCNVector3(-2, -3, 0), shaders: [:])
