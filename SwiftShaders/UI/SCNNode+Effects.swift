@@ -145,7 +145,7 @@ extension SCNNode {
         }
     }
     
-    func addGaussianBlurEffect() {
+    func addGaussianBlurEffect(_ blur: Float) {
         let program = SCNProgram()
         program.vertexFunctionName = "gaussianBlurVertex"
         program.fragmentFunctionName = "gaussianBlurFragment"
@@ -162,7 +162,7 @@ extension SCNNode {
         }
         
         var uniforms = FragmentUniforms()
-        uniforms.blur = 4.0
+        uniforms.blur = blur
         
         program.handleBinding(ofBufferNamed: "uniforms", frequency: .perFrame) { (bufferStream, node, shadable, renderer) in
             bufferStream.writeBytes(&uniforms, count: MemoryLayout<FragmentUniforms>.stride)
