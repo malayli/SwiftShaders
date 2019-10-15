@@ -17,7 +17,7 @@ struct NodeBuffer {
 //Information about the vertex, passed to the vertex function
 typedef struct {
     float3 position [[ attribute(SCNVertexSemanticPosition) ]];
-    float2 texCoords [[ attribute(SCNVertexSemanticTexcoord0) ]];
+    float2 texCoords [[attribute(SCNVertexSemanticTexcoord0)]];
 } VertexInput;
 
 //Vertex function output, passed to the fragment function

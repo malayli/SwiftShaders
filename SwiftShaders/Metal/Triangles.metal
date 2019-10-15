@@ -12,7 +12,7 @@ struct myPlaneNodeBuffer {
 
 typedef struct {
     float3 position [[ attribute(SCNVertexSemanticPosition) ]];
-    float2 texCoords [[ attribute(SCNVertexSemanticTexcoord0) ]];
+    float2 texCoords [[attribute(SCNVertexSemanticTexcoord0)]];
 } VertexInput;
 
 static float rand(float2 uv)
