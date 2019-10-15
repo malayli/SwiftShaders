@@ -86,7 +86,7 @@ final class SwiftShadersScene: SCNScene {
         contentNode.addChildNode(trianglesNode)
         
         let colorNode = cubeNode(position: SCNVector3(6, -3, 0), shaders: [:])
-        colorNode.addColorEffect(red: 40, green: 80, blue: 160)
+        colorNode.addColorEffect(red: 40, green: 80, blue: 160, alpha: 128)
         contentNode.addChildNode(colorNode)
     }
 }

@@ -84,22 +84,25 @@ extension SCNNode {
         geometry?.firstMaterial?.lightingModel = .constant
     }
     
-    func addColorEffect(red: Float, green: Float, blue: Float) {
+    func addColorEffect(red: Float, green: Float, blue: Float, alpha: Float) {
         let program = SCNProgram()
         program.vertexFunctionName = "colorVertex"
         program.fragmentFunctionName = "colorFragment"
+        program.isOpaque = false
         geometry?.firstMaterial?.program = program
         
         struct FragmentUniforms {
             var colorR: Float = 1.0
             var colorG: Float = 1.0
             var colorB: Float = 1.0
+            var alpha: Float = 1.0
         }
         
         var uniforms = FragmentUniforms()
         uniforms.colorR = red/255.0
         uniforms.colorG = green/255.0
         uniforms.colorB = blue/255.0
+        uniforms.alpha = alpha/255.0
         
         program.handleBinding(ofBufferNamed: "uniforms", frequency: .perFrame) { (bufferStream, node, shadable, renderer) in
             bufferStream.writeBytes(&uniforms, count: MemoryLayout<FragmentUniforms>.stride)

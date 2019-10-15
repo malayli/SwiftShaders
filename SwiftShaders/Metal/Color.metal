@@ -25,6 +25,7 @@ struct FragmentUniforms {
     float colorR;
     float colorG;
     float colorB;
+    float alpha;
 };
 
 vertex VertexOut colorVertex(VertexInput in [[ stage_in ]], constant NodeBuffer& scn_node [[buffer(1)]]) {
@@ -35,5 +36,5 @@ vertex VertexOut colorVertex(VertexInput in [[ stage_in ]], constant NodeBuffer&
 }
 
 fragment float4 colorFragment(VertexOut vertexOut [[stage_in]], constant FragmentUniforms &uniforms [[buffer(0)]]) {
-    return float4(uniforms.colorR, uniforms.colorG, uniforms.colorB, 1);
+    return float4(uniforms.colorR, uniforms.colorG, uniforms.colorB, uniforms.alpha);
 }
