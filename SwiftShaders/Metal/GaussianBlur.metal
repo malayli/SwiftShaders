@@ -26,14 +26,14 @@ struct FragmentUniforms {
     float blur;
 };
 
-vertex VertexOut gaussianBlurVertex(VertexInput in [[ stage_in ]], constant NodeBuffer& scn_node [[buffer(1)]]) {
+vertex VertexOut gaussianBlurVertex(VertexInput in [[stage_in]], constant NodeBuffer& scn_node [[buffer(1)]]) {
     VertexOut out;
     out.position = scn_node.modelViewProjectionTransform * float4(in.position, 1.0);
     out.uv = in.texCoords;
     return out;
 }
 
-fragment float4 gaussianBlurFragment(VertexOut fragmentIn [[ stage_in ]], texture2d<float, access::sample> customTexture [[texture(0)]], constant FragmentUniforms &uniforms [[buffer(0)]]) {
+fragment float4 gaussianBlurFragment(VertexOut fragmentIn [[stage_in]], texture2d<float, access::sample> customTexture [[texture(0)]], constant FragmentUniforms &uniforms [[buffer(0)]]) {
     float2 offset = fragmentIn.uv;
     constexpr sampler qsampler(coord::normalized,address::clamp_to_edge);
     float width = customTexture.get_width();

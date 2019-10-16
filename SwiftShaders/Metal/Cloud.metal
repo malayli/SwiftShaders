@@ -16,7 +16,7 @@ struct NodeBuffer {
 
 //Information about the vertex, passed to the vertex function
 typedef struct {
-    float3 position [[ attribute(SCNVertexSemanticPosition) ]];
+    float3 position [[attribute(SCNVertexSemanticPosition)]];
     float2 texCoords [[attribute(SCNVertexSemanticTexcoord0)]];
 } VertexInput;
 
@@ -34,7 +34,7 @@ struct VertexOut
 
 //MARK: - Vertex Function
 //used to pass positions in node-space to the fragment function, in order to do per-pixel ray marching.
-vertex VertexOut cloudVertex(VertexInput in [[ stage_in ]],
+vertex VertexOut cloudVertex(VertexInput in [[stage_in]],
                              constant SCNSceneBuffer& scn_frame [[buffer(0)]],
                              constant NodeBuffer& scn_node [[buffer(1)]])
 {

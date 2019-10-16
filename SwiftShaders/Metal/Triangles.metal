@@ -11,7 +11,7 @@ struct myPlaneNodeBuffer {
 };
 
 typedef struct {
-    float3 position [[ attribute(SCNVertexSemanticPosition) ]];
+    float3 position [[attribute(SCNVertexSemanticPosition)]];
     float2 texCoords [[attribute(SCNVertexSemanticTexcoord0)]];
 } VertexInput;
 
@@ -34,7 +34,7 @@ struct SimpleVertexWithUV
     float2 uv;
 };
 
-vertex SimpleVertexWithUV trianglequiltVertex(VertexInput in [[ stage_in ]],
+vertex SimpleVertexWithUV trianglequiltVertex(VertexInput in [[stage_in]],
                                      constant SCNSceneBuffer& scn_frame [[buffer(0)]],
                                      constant myPlaneNodeBuffer& scn_node [[buffer(1)]])
 {
