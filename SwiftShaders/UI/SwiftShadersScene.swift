@@ -16,19 +16,42 @@ final class SwiftShadersScene: SCNScene {
         contentNode.castsShadow = false
         rootNode.addChildNode(contentNode)
         
+        // Bum Mapping
+        // Resources: http://planetpixelemporium.com/earth.html
+        
+        let earthGeometry = SCNSphere(radius: 1)
+        //earthGeometry.firstMaterial?.diffuse.contents = UIImage(named: "diffuse")
+        earthGeometry.firstMaterial?.normal.contents = UIImage(named: "normal")
+        earthGeometry.firstMaterial?.lightingModel = .lambert
+        let earthNode = SCNNode(geometry: earthGeometry)
+        earthNode.castsShadow = false
+        earthNode.position = SCNVector3(0, 4, 0)
+        contentNode.addChildNode(earthNode)
+        
+        let lightNode = SCNNode()
+        lightNode.castsShadow = false
+        lightNode.light = SCNLight()
+        lightNode.light?.type = .omni
+        lightNode.light?.color = UIColor.white
+        lightNode.position = SCNVector3(0, 4, 10)
+        lightNode.look(at: earthNode.position)
+        contentNode.addChildNode(lightNode)
+        
         // First Line: SceneKit Shaders
         
-        contentNode.addChildNode(cubeNode(position: SCNVector3(-6, 3, 0), shaders: [.surface: simpleHalfColoringFromScreenSizeSurfaceShader]))
+        contentNode.addChildNode(cubeNode(position: SCNVector3(-6, 2, 0), shaders: [.surface: simpleHalfColoringFromScreenSizeSurfaceShader]))
         
-        contentNode.addChildNode(cubeNode(position: SCNVector3(-4, 3, 0), shaders: [.surface: simpleHalfColoringSurfaceShader]))
+        contentNode.addChildNode(cubeNode(position: SCNVector3(-4, 2, 0), shaders: [.surface: simpleHalfColoringSurfaceShader]))
         
-        let borgNode = cubeNode(position: SCNVector3(-2, 3, 0), shaders: [.fragment: appearingFragmentShader])
+        let borgNode = cubeNode(position: SCNVector3(-2, 2, 0), shaders: [.fragment: appearingFragmentShader])
         borgNode.addRevealAnimation("noise")
         contentNode.addChildNode(borgNode)
         
-        contentNode.addChildNode(cubeNode(position: SCNVector3(0, 3, 0), shaders: [.surface: coloringSurfaceShader]))
+        contentNode.addChildNode(cubeNode(position: SCNVector3(0, 2, 0), shaders: [.surface: coloringSurfaceShader]))
         
-        contentNode.addChildNode(cubeNode(position: SCNVector3(2, 3, 0), shaders: [.geometry: twistingGeometryShader]))
+        contentNode.addChildNode(cubeNode(position: SCNVector3(2, 2, 0), shaders: [.geometry: twistingGeometryShader]))
+        
+        contentNode.addChildNode(cubeNode(position: SCNVector3(4, 2, 0), shaders: [.fragment: coloringFragmentShader]))
         
         // Second Line: Filters
         
@@ -65,27 +88,27 @@ final class SwiftShadersScene: SCNScene {
 //        let node = SCNNode(geometry: geometry)
 //        contentNode.addChildNode(node)
         
-        let textureSamplerNode = cubeNode(position: SCNVector3(-6, -3, 0), shaders: [:])
+        let textureSamplerNode = cubeNode(position: SCNVector3(-6, -2, 0), shaders: [:])
         textureSamplerNode.addProgramWithTexture("customTexture")
         contentNode.addChildNode(textureSamplerNode)
         
-        let blurNode = cubeNode(position: SCNVector3(-4, -3, 0), shaders: [:])
+        let blurNode = cubeNode(position: SCNVector3(-4, -2, 0), shaders: [:])
         blurNode.addGaussianBlurEffect("customTexture", blur: 4)
         contentNode.addChildNode(blurNode)
         
-        let textureBrightnessSamplerNode = cubeNode(position: SCNVector3(-2, -3, 0), shaders: [:])
+        let textureBrightnessSamplerNode = cubeNode(position: SCNVector3(-2, -2, 0), shaders: [:])
         textureBrightnessSamplerNode.addProgramWithTexture("customTexture", brightness: 2.0)
         contentNode.addChildNode(textureBrightnessSamplerNode)
         
-        let cloudNode = cubeNode(position: SCNVector3(2, -3, 0), shaders: [:])
+        let cloudNode = cubeNode(position: SCNVector3(0, -2, 0), shaders: [:])
         cloudNode.addCloudEffect()
         contentNode.addChildNode(cloudNode)
         
-        let trianglesNode = cubeNode(position: SCNVector3(4, -3, 0), shaders: [:])
+        let trianglesNode = cubeNode(position: SCNVector3(2, -2, 0), shaders: [:])
         trianglesNode.addTrianglesEffect()
         contentNode.addChildNode(trianglesNode)
         
-        let colorNode = cubeNode(position: SCNVector3(6, -3, 0), shaders: [:])
+        let colorNode = cubeNode(position: SCNVector3(4, -2, 0), shaders: [:])
         colorNode.addColorEffect(red: 40, green: 80, blue: 160, alpha: 128)
         contentNode.addChildNode(colorNode)
     }
