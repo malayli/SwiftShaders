@@ -11,7 +11,7 @@
 		1F2209E5235425A700DAF980 /* ThickRedLine.metal in Sources */ = {isa = PBXBuildFile; fileRef = 1F2209DD235425A700DAF980 /* ThickRedLine.metal */; };
 		1F2209E6235425A700DAF980 /* Color.metal in Sources */ = {isa = PBXBuildFile; fileRef = 1F2209DE235425A700DAF980 /* Color.metal */; };
 		1F2209E7235425A700DAF980 /* Triangles.metal in Sources */ = {isa = PBXBuildFile; fileRef = 1F2209DF235425A700DAF980 /* Triangles.metal */; };
-		1F2209E9235425A700DAF980 /* Shaders.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F2209E2235425A700DAF980 /* Shaders.swift */; };
+		1F2209E9235425A700DAF980 /* GLSL_Shaders.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F2209E2235425A700DAF980 /* GLSL_Shaders.swift */; };
 		1F2209EC235425D900DAF980 /* Cloud.metal in Sources */ = {isa = PBXBuildFile; fileRef = 1F2209EA235425D900DAF980 /* Cloud.metal */; };
 		1F2209ED235425D900DAF980 /* Pixelate.metal in Sources */ = {isa = PBXBuildFile; fileRef = 1F2209EB235425D900DAF980 /* Pixelate.metal */; };
 		1F2209F12354262500DAF980 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F2209EF2354262500DAF980 /* GameViewController.swift */; };
@@ -54,7 +54,7 @@
 		1F2209DD235425A700DAF980 /* ThickRedLine.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = ThickRedLine.metal; sourceTree = "<group>"; };
 		1F2209DE235425A700DAF980 /* Color.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = Color.metal; sourceTree = "<group>"; };
 		1F2209DF235425A700DAF980 /* Triangles.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = Triangles.metal; sourceTree = "<group>"; };
-		1F2209E2235425A700DAF980 /* Shaders.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Shaders.swift; sourceTree = "<group>"; };
+		1F2209E2235425A700DAF980 /* GLSL_Shaders.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GLSL_Shaders.swift; sourceTree = "<group>"; };
 		1F2209EA235425D900DAF980 /* Cloud.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = Cloud.metal; sourceTree = "<group>"; };
 		1F2209EB235425D900DAF980 /* Pixelate.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = Pixelate.metal; sourceTree = "<group>"; };
 		1F2209EF2354262500DAF980 /* GameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
@@ -126,7 +126,7 @@
 			isa = PBXGroup;
 			children = (
 				3A562578235578D700848C7D /* GLSL_Notes.txt */,
-				1F2209E2235425A700DAF980 /* Shaders.swift */,
+				1F2209E2235425A700DAF980 /* GLSL_Shaders.swift */,
 			);
 			path = GLSL;
 			sourceTree = "<group>";
@@ -341,7 +341,7 @@
 				1F2209FA23547E1400DAF980 /* GaussianBlur.metal in Sources */,
 				1F2209F12354262500DAF980 /* GameViewController.swift in Sources */,
 				1F2209F4235428FD00DAF980 /* TextureBrightness.metal in Sources */,
-				1F2209E9235425A700DAF980 /* Shaders.swift in Sources */,
+				1F2209E9235425A700DAF980 /* GLSL_Shaders.swift in Sources */,
 				1FE5FD69234997D1009DF72F /* AppDelegate.swift in Sources */,
 				1F2209E5235425A700DAF980 /* ThickRedLine.metal in Sources */,
 				1F2209ED235425D900DAF980 /* Pixelate.metal in Sources */,

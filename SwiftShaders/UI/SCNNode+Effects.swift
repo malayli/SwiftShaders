@@ -1,5 +1,24 @@
 import SceneKit
 
+// MARK: - Cube
+
+extension SCNNode {
+    convenience init(position p: SCNVector3, shaders: [SCNShaderModifierEntryPoint: String]) {
+        self.init()
+        
+        castsShadow = false
+        position = p
+        geometry = SCNBox(width: 1, height: 1, length: 1, chamferRadius: 0)
+        
+        let material = SCNMaterial()
+        material.shaderModifiers = shaders
+        material.lightingModel = .constant
+        geometry?.materials = [material]
+    }
+}
+
+// MARK: - Texture
+
 extension SCNNode {
     func addTexture(_ imageName: String) {
         geometry?.firstMaterial?.diffuse.contents = UIImage(named: imageName)
@@ -19,11 +38,7 @@ extension SCNNode {
         addAnimation(animation, forKey: key)
     }
     
-    func addRevealAnimation(_ imageName: String) {
-        if let noiseImage = UIImage(named: imageName) {
-            geometry?.firstMaterial?.setValue(SCNMaterialProperty(contents: noiseImage), forKey: "noiseTexture")
-        }
-        
+    func addRevealAnimation() {
         let revealAnimation = CABasicAnimation(keyPath: "revealage")
         revealAnimation.timingFunction = CAMediaTimingFunction(name: .linear)
         revealAnimation.beginTime = CACurrentMediaTime() + 5
@@ -122,17 +137,13 @@ extension SCNNode {
         geometry?.firstMaterial?.setValue(materialProperty, forKey: "customTexture")
     }
     
-    func addProgramWithTexture(_ name: String, brightness: Float) {
+    func addProgramWithTexture(_ name: String, key: String, brightness: Float) {
         let program = SCNProgram()
         program.vertexFunctionName = "textureBrightnessSamplerVertex"
         program.fragmentFunctionName = "textureBrightnessSamplerFragment"
         geometry?.firstMaterial?.program = program
         
-        guard let customTextureImage  = UIImage(named: name) else {
-            return
-        }
-        let materialProperty = SCNMaterialProperty(contents: customTextureImage)
-        geometry?.firstMaterial?.setValue(materialProperty, forKey: "customTexture")
+        addMaterialWithTexture(name, for: key)
         
         struct FragmentUniforms {
             var brightness: Float = 1.0
@@ -144,6 +155,14 @@ extension SCNNode {
         program.handleBinding(ofBufferNamed: "uniforms", frequency: .perFrame) { (bufferStream, node, shadable, renderer) in
             bufferStream.writeBytes(&uniforms, count: MemoryLayout<FragmentUniforms>.stride)
         }
+    }
+    
+    func addMaterialWithTexture(_ name: String, for key: String) {
+        guard let customTextureImage  = UIImage(named: name) else {
+            return
+        }
+        let materialProperty = SCNMaterialProperty(contents: customTextureImage)
+        geometry?.firstMaterial?.setValue(materialProperty, forKey: key)
     }
     
     func addGaussianBlurEffect(_ name: String, blur: Float) {
