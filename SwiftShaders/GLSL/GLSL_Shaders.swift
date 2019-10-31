@@ -173,7 +173,7 @@ float yValue = u_inverseResolution.y * 2.0;
 
 float blur = 5.2;
 
-// Time varying pixel color
+// Apply Gaussian Blur
 vec3 col = texture2D(u_diffuseTexture, vec2(uv.x - 4.0 * xValue * blur, uv.y - 4.0 * yValue * blur)).rgb * 0.01621621621;
 col += texture2D(u_diffuseTexture, vec2(uv.x - 3.0 * xValue * blur, uv.y - 3.0 * yValue * blur)).rgb * 0.0540540541;
 col += texture2D(u_diffuseTexture, vec2(uv.x - 2.0 * xValue * blur, uv.y - 2.0 * yValue * blur)).rgb * 0.1216216216;
