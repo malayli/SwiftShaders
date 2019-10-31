@@ -1,5 +1,7 @@
 import Foundation
 
+// iOS GLSL Shaders
+
 // MARK: - Surface
 
 let simpleHalfColoringSurfaceShader = """
