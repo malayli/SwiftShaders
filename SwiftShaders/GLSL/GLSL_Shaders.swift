@@ -187,3 +187,63 @@ col += texture2D(u_diffuseTexture, vec2(uv.x + 4.0 * xValue * blur, uv.y + 4.0 *
 // Output to screen
 _output.color.rgba = vec4(col,1);
 """
+
+let wavingFragment = """
+vec2 uv = _surface.diffuseTexcoord.xy;
+float speed = 4.0;
+float turbulence = 10.0;
+float dist = length(uv);
+vec2 center = vec2(0.5, 0.5);
+uv += uv / dist * cos(dist * turbulence - u_time * speed) * 0.008;
+uv = uv * 0.5;
+vec3 col = texture2D(u_diffuseTexture, uv).rgb;
+_output.color.rgba = vec4(col,1);
+"""
+
+let dropEffectFragment = """
+vec2 center = vec2(0.5,0.5);
+float speed = 0.035;
+vec2 uv = _surface.diffuseTexcoord.xy;
+vec3 col = vec4(uv,0.5+0.5*sin(u_time),1.0).xyz;
+vec3 texcol;
+float invAr = u_inverseResolution.x / u_inverseResolution.y;
+float x = (center.x-uv.x);
+float y = (center.y-uv.y) * invAr;
+float r = -(x*x + y*y);
+float z = 1.0 + 0.5*sin((r+u_time*speed)/0.013);
+texcol.x = z;
+texcol.y = z;
+texcol.z = z;
+_output.color.rgba = vec4(col*texcol, 1.0);
+"""
+
+let cellsFlowFragment = """
+_output.color.rgba -= _output.color.rgba;
+
+vec4 X = _output.color.rgba;
+
+vec2 uv = _surface.diffuseTexcoord.xy;
+vec2 p = 20.0 * (uv * u_inverseResolution.xy + 0.5);
+float t = u_time;
+float hs = 20.0*(0.7+cos(t)*0.1);
+
+float myTime = t;
+float result = sin( p.y +cos(myTime+p.x*.2) ) * cos(p.x-myTime);
+result *= acos(result);
+float x = - result * abs(result-.5) * p.x/p.y;
+
+float y = p.y-x;
+
+for(int i=0; i < 2; ++i) {
+    p.x *= 2.0;
+
+    float myTime = t+i+1.0;
+    float result1 = sin( p.y +cos(myTime+p.x*.2) ) * cos(p.x-myTime);
+    result1 *= acos(result1);
+    float x1 = - result * abs(result1-.5) * p.x/p.y;
+
+    X = x + vec4(0, x1, x1 ,0);
+    x = X.z += X.y;
+    _output.color.rgba += vec4(.5, .2, .3, 0) / abs(y-X-hs);
+}
+"""
