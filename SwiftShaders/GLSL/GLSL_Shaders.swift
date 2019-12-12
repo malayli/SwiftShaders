@@ -20,10 +20,6 @@ _surface.diffuse = vec4(1.0, 0.8, 0.2, 1.0);
 }
 """
 
-let gradientColoringFromScreenSizeSurfaceShader = """
-_surface.diffuse = vec4(0.0, 0.0, gl_FragCoord.xy.x * u_inverseResolution.x, 1.0);
-"""
-
 let coloringSurfaceShader = "float flakeSize = sin(u_time * 0.2);\n"
     + "float flakeIntensity = 0.7;\n"
     + "vec3 paintColor0 = vec3(1, 1, 1);\n"
@@ -40,35 +36,6 @@ let coloringSurfaceShader = "float flakeSize = sin(u_time * 0.2);\n"
     + "_surface.diffuse = vec4(col.r,col.b,col.g, 1.0);\n"
     + "_surface.emission = (_surface.reflective * _surface.reflective) * 2.0;\n"
     + "_surface.reflective = vec4(0.0);\n"
-
-let tooningShader = """
-vec3 lDir = normalize(vec3(0.1,1.0,1.0));
-float dotProduct = dot(_surface.normal,lDir);
-
-_lightingContribution.diffuse += (dotProduct * dotProduct * _light.intensity.rgb);
-_lightingContribution.diffuse = floor(_lightingContribution.diffuse * 4.0) / 3.0;
-
-vec3 halfVector = normalize(lDir + _surface.view);
-
-dotProduct = max(0.0, pow(max(0.0, dot(_surface.normal, halfVector)), _surface.shininess));
-dotProduct = floor(dotProduct * 3.0) / 3.0;
-
-//_lightingContribution.specular += (dotProduct * _light.intensity.rgb);
-_lightingContribution.specular = vec3(0,0,0);
-"""
-
-let outliningShader = """
-#pragma body
-
-const float PIover2 = (3.14159265358979 / 2.0);
-const float lineTolerance = 1.0;
-
-float dotProduct = dot(_surface.view, _surface.normal);
-
-if ( (PIover2 + lineTolerance) > dotProduct && dotProduct > (PIover2 - lineTolerance) ) {
-  _output.color.rgba = vec4(0.0, 0.0, 0.0, 1.0);
-}
-"""
 
 // MARK: - Geometry
 
@@ -97,20 +64,6 @@ _geometry.normal   = twistedNormal.xyz;
 
 // MARK: - Fragment
 
-//https://www.shadertoy.com/new
-//
-//void mainImage( out vec4 fragColor, in vec2 fragCoord )
-//{
-//    // Normalized pixel coordinates (from 0 to 1)
-//    vec2 uv = fragCoord.xy/iResolution.xy;
-//
-//    // Time varying pixel color
-//    vec3 col = 0.5 + 0.5*cos(iTime+uv.xyx+vec3(0,2,4));
-//
-//    // Output to screen
-//    fragColor = vec4(col,1.0);
-//}
-//
 let coloringFragmentShader = """
 // Normalized pixel coordinates (from 0 to 1)
 vec2 uv = gl_FragCoord.xy * u_inverseResolution.xy;
