@@ -216,34 +216,3 @@ texcol.y = z;
 texcol.z = z;
 _output.color.rgba = vec4(col*texcol, 1.0);
 """
-
-let cellsFlowFragment = """
-_output.color.rgba -= _output.color.rgba;
-
-vec4 X = _output.color.rgba;
-
-vec2 uv = _surface.diffuseTexcoord.xy;
-vec2 p = 20.0 * (uv * u_inverseResolution.xy + 0.5);
-float t = u_time;
-float hs = 20.0*(0.7+cos(t)*0.1);
-
-float myTime = t;
-float result = sin( p.y +cos(myTime+p.x*.2) ) * cos(p.x-myTime);
-result *= acos(result);
-float x = - result * abs(result-.5) * p.x/p.y;
-
-float y = p.y-x;
-
-for(int i=0; i < 2; ++i) {
-    p.x *= 2.0;
-
-    float myTime = t+i+1.0;
-    float result1 = sin( p.y +cos(myTime+p.x*.2) ) * cos(p.x-myTime);
-    result1 *= acos(result1);
-    float x1 = - result * abs(result1-.5) * p.x/p.y;
-
-    X = x + vec4(0, x1, x1 ,0);
-    x = X.z += X.y;
-    _output.color.rgba += vec4(.5, .2, .3, 0) / abs(y-X-hs);
-}
-"""

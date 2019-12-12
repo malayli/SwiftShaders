@@ -62,9 +62,6 @@ final class SwiftShadersScene: SCNScene {
         gaussianBlurredCubeNode.addTexture("customTexture")
         contentNode.addChildNode(gaussianBlurredCubeNode)
         
-        let cellsFlowCubeNode = SCNNode(position: SCNVector3(10, 2, 0), shaders: [.fragment: cellsFlowFragment])
-        contentNode.addChildNode(cellsFlowCubeNode)
-        
         let wavedCubeNode = SCNNode(position: SCNVector3(12, 2, 0), shaders: [.fragment: wavingFragment])
         wavedCubeNode.addTexture("customTexture")
         contentNode.addChildNode(wavedCubeNode)
