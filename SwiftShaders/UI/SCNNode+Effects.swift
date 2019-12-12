@@ -57,11 +57,10 @@ extension SCNNode {
 
 extension SCNNode {
     func addFilters(_ names: [String]) {
-        names.forEach {
-        if let filter = CIFilter(name: $0) {
-            filter.name = $0
-            filters = [filter]
-        }
+        filters = names.compactMap { name -> CIFilter? in
+            let filter = CIFilter(name: name)
+            filter?.name = name
+            return filter
         }
     }
 }
